@@ -208,7 +208,7 @@ const SocialMedia = () => {
             <Button size="lg">
               Demander un audit gratuit
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="secondary" size="lg">
               Nos offres
             </Button>
           </div>

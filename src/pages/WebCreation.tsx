@@ -130,7 +130,7 @@ const WebCreation = () => {
             <Button size="lg">
               Demander un devis
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="secondary" size="lg">
               En savoir plus
             </Button>
           </div>

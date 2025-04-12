@@ -177,7 +177,7 @@ const Seo = () => {
             <Button size="lg">
               Demander un audit gratuit
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="secondary" size="lg">
               Nos tarifs
             </Button>
           </div>

@@ -117,7 +117,7 @@ const VideoMarketing = () => {
           ))}
         </div>
         <div className="text-center mt-8">
-          <Button variant="outline" size="lg">
+          <Button variant="secondary" size="lg">
             Voir plus de projets
           </Button>
         </div>
@@ -246,7 +246,7 @@ const VideoMarketing = () => {
             <Button size="lg">
               Demander un devis
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="secondary" size="lg">
               Voir notre portfolio
             </Button>
           </div>
