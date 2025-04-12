@@ -1,7 +1,40 @@
 import React, { useEffect } from 'react'
 import StarryBackground from '../components/StarryBackground'
 import Button from '../components/ui/Button'
+import Timeline from '../components/Timeline'
+import { motion } from 'framer-motion'
+import { FaGlobe, FaPencilAlt, FaSearch, FaChartLine, FaInstagram, FaHeadset } from 'react-icons/fa'
 import '../styles/ia-enhancements.css'
+
+interface ServiceCardProps {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;
+  delay: number;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, color, delay }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+      className={`relative group overflow-hidden`}
+    >
+      <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm rounded-xl" />
+      <div className="relative p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors duration-300">
+        <div className={`text-4xl mb-4 ${color}`}>{icon}</div>
+        <h3 className="text-xl font-bold mb-2 text-white group-hover:text-blue-300 transition-colors duration-300">{title}</h3>
+        <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{description}</p>
+        
+        {/* Effet de glow subtil */}
+        <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors duration-300 rounded-xl" />
+      </div>
+    </motion.div>
+  )
+}
 
 const Home: React.FC = () => {
   useEffect(() => {
@@ -67,59 +100,67 @@ const Home: React.FC = () => {
           </div>
         </section>
 
+        <Timeline />
+
         {/* Services Section */}
-        <section className="py-20 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 stl-neon-text">
-              Nos Services
-            </h2>
+        <section className="py-32">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl font-bold text-white mb-4">Nos Services</h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                Des solutions sur mesure pour votre présence numérique
+              </p>
+            </motion.div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: '🌐',
-                  title: 'Sites Web',
-                  description: 'Sites vitrines et e-commerce sur mesure avec un design moderne et responsive.'
-                },
-                {
-                  icon: '📱',
-                  title: 'Applications',
-                  description: 'Applications web et mobiles performantes pour digitaliser votre activité.'
-                },
-                {
-                  icon: '🎨',
-                  title: 'Design',
-                  description: 'Identité visuelle unique et cohérente pour renforcer votre image de marque.'
-                },
-                {
-                  icon: '📈',
-                  title: 'SEO',
-                  description: 'Optimisation pour les moteurs de recherche et stratégie de contenu.'
-                },
-                {
-                  icon: '💡',
-                  title: 'Marketing',
-                  description: 'Campagnes publicitaires ciblées sur les réseaux sociaux et Google Ads.'
-                },
-                {
-                  icon: '🛠️',
-                  title: 'Maintenance',
-                  description: 'Support technique et mises à jour régulières de votre site web.'
-                }
-              ].map((service, index) => (
-                <div
-                  key={service.title}
-                  className="stl-glass p-6 rounded-xl stl-fade-in hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-bold mb-2 text-white">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-300">
-                    {service.description}
-                  </p>
-                </div>
-              ))}
+              <ServiceCard
+                title="Création Web"
+                description="Sites web modernes et responsive, parfaitement adaptés à vos besoins"
+                icon={<FaGlobe className="w-8 h-8" />}
+                color="text-blue-400 group-hover:text-blue-300"
+                delay={0}
+              />
+              <ServiceCard
+                title="Design Graphique"
+                description="Identité visuelle unique et supports marketing percutants"
+                icon={<FaPencilAlt className="w-8 h-8" />}
+                color="text-indigo-400 group-hover:text-indigo-300"
+                delay={0.2}
+              />
+              <ServiceCard
+                title="SEO"
+                description="Optimisation pour les moteurs de recherche et visibilité en ligne"
+                icon={<FaSearch className="w-8 h-8" />}
+                color="text-violet-400 group-hover:text-violet-300"
+                delay={0.4}
+              />
+              <ServiceCard
+                title="Marketing Digital"
+                description="Stratégies marketing efficaces pour atteindre vos objectifs"
+                icon={<FaChartLine className="w-8 h-8" />}
+                color="text-cyan-400 group-hover:text-cyan-300"
+                delay={0.6}
+              />
+              <ServiceCard
+                title="Réseaux Sociaux"
+                description="Gestion professionnelle de vos réseaux sociaux"
+                icon={<FaInstagram className="w-8 h-8" />}
+                color="text-teal-400 group-hover:text-teal-300"
+                delay={0.8}
+              />
+              <ServiceCard
+                title="Support Technique"
+                description="Assistance et maintenance continue de vos solutions"
+                icon={<FaHeadset className="w-8 h-8" />}
+                color="text-sky-400 group-hover:text-sky-300"
+                delay={1}
+              />
             </div>
           </div>
         </section>
