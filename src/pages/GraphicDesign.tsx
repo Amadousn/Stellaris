@@ -1,197 +1,275 @@
-import React from 'react'
-import LinkButton from '../components/ui/LinkButton'
-import '../styles/ia-enhancements.css'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaPalette, FaRocket, FaPencilAlt, FaImage, FaVideo, FaMagic, FaSearch, FaLightbulb } from 'react-icons/fa';
+
+interface ServiceCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  features: string[];
+  index: number;
+}
+
+interface ProcessStepProps {
+  step: number;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  isLeft: boolean;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, features, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6, delay: index * 0.2 }}
+    className="relative group"
+  >
+    <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm rounded-xl" />
+    <div className="relative p-8 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors duration-300">
+      <div className="text-4xl text-blue-400 mb-6 group-hover:scale-110 transition-transform duration-300">
+        {icon}
+      </div>
+      <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-300 transition-colors duration-300">
+        {title}
+      </h3>
+      <p className="text-gray-400 mb-6 group-hover:text-gray-300 transition-colors duration-300">
+        {description}
+      </p>
+      <ul className="space-y-3">
+        {features.map((feature, i) => (
+          <motion.li
+            key={i}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.2 + i * 0.1 }}
+            className="flex items-center text-gray-400 group-hover:text-gray-300"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 + i * 0.1 }}
+              className="w-2 h-2 rounded-full bg-blue-500 mr-3"
+            />
+            {feature}
+          </motion.li>
+        ))}
+      </ul>
+    </div>
+  </motion.div>
+);
+
+const ProcessStep: React.FC<ProcessStepProps> = ({ step, title, description, icon, isLeft }) => (
+  <div className="relative">
+    {/* Ligne de connexion */}
+    <div className="absolute top-0 bottom-0 left-1/2 w-px bg-gray-800 transform -translate-x-1/2" />
+    
+    {/* Point sur la timeline */}
+    <motion.div
+      initial={{ scale: 0 }}
+      whileInView={{ scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
+      className="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2"
+    >
+      <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+        {step}
+      </div>
+    </motion.div>
+
+    {/* Contenu */}
+    <motion.div
+      initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className={`relative mb-16 w-5/12 ${isLeft ? 'mr-auto pr-8' : 'ml-auto pl-8'}`}
+    >
+      <div className="relative p-6 bg-gray-900/40 backdrop-blur-sm rounded-xl border border-gray-800">
+        <div className="text-3xl text-blue-400 mb-4">
+          {icon}
+        </div>
+        <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+        <p className="text-gray-400">{description}</p>
+      </div>
+    </motion.div>
+  </div>
+);
 
 const GraphicDesign: React.FC = () => {
   const services = [
     {
-      title: 'Identité Visuelle',
-      description: 'Création de logos, chartes graphiques et identités de marque',
-      icon: '🎨',
+      icon: <FaPalette />,
+      title: 'Identité de Marque',
+      description: 'Création d\'une identité visuelle unique et mémorable pour votre entreprise.',
+      features: [
+        'Création de logo',
+        'Charte graphique complète',
+        'Guidelines de marque',
+        'Déclinaisons supports'
+      ]
     },
     {
-      title: 'Supports Marketing',
-      description: 'Conception de flyers, brochures, cartes de visite et affiches',
-      icon: '📄',
+      icon: <FaImage />,
+      title: 'Design Print',
+      description: 'Conception de supports de communication imprimés professionnels.',
+      features: [
+        'Cartes de visite',
+        'Brochures et flyers',
+        'Affiches publicitaires',
+        'Packaging produits'
+      ]
     },
     {
-      title: 'Design Web',
-      description: 'Création de bannières, visuels pour réseaux sociaux et newsletters',
-      icon: '💻',
+      icon: <FaPencilAlt />,
+      title: 'Design Digital',
+      description: 'Création de visuels optimisés pour vos supports numériques.',
+      features: [
+        'Posts réseaux sociaux',
+        'Bannières web',
+        'Newsletters',
+        'Présentations digitales'
+      ]
     },
     {
+      icon: <FaVideo />,
+      title: 'Motion Design',
+      description: 'Animation de vos contenus pour plus d\'impact et d\'engagement.',
+      features: [
+        'Animation de logo',
+        'Posts animés',
+        'Vidéos promotionnelles',
+        'Transitions animées'
+      ]
+    },
+    {
+      icon: <FaMagic />,
       title: 'Illustration',
-      description: 'Illustrations personnalisées, icônes et infographies',
-      icon: '✏️',
+      description: 'Création d\'illustrations personnalisées pour vos projets.',
+      features: [
+        'Illustrations vectorielles',
+        'Mascotte de marque',
+        'Icônes personnalisées',
+        'Infographies'
+      ]
     },
-  ]
+    {
+      icon: <FaRocket />,
+      title: 'UI/UX Design',
+      description: 'Conception d\'interfaces utilisateur intuitives et esthétiques.',
+      features: [
+        'Design d\'interface',
+        'Prototypage',
+        'Design System',
+        'Guidelines UI'
+      ]
+    }
+  ];
 
   const process = [
     {
-      title: 'Brief & Analyse',
-      description: 'Compréhension de vos besoins et objectifs',
+      step: 1,
+      title: 'Découverte',
+      description: 'Analyse approfondie de vos besoins, objectifs et de votre identité.',
+      icon: <FaSearch />,
+      isLeft: true
     },
     {
-      title: 'Recherche & Concepts',
-      description: 'Exploration créative et proposition de concepts',
+      step: 2,
+      title: 'Recherche',
+      description: 'Exploration créative et recherche de concepts innovants.',
+      icon: <FaLightbulb />,
+      isLeft: false
     },
     {
-      title: 'Design & Itération',
-      description: 'Création et affinement des designs',
+      step: 3,
+      title: 'Création',
+      description: 'Développement des designs et itérations selon vos retours.',
+      icon: <FaPencilAlt />,
+      isLeft: true
     },
     {
+      step: 4,
       title: 'Finalisation',
-      description: 'Livraison des fichiers dans tous les formats nécessaires',
-    },
-  ]
+      description: 'Peaufinage des détails et préparation des fichiers finaux.',
+      icon: <FaMagic />,
+      isLeft: false
+    }
+  ];
 
   return (
-    <div className="min-h-screen py-20">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="stl-glass rounded-2xl p-8 md:p-12 backdrop-blur-lg">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent stl-neon-text">
-                Création Graphique Professionnelle
-              </h1>
-              <p className="text-xl text-gray-300 mb-8 stl-fade-in">
-                Donnez vie à votre identité visuelle avec nos services de design graphique sur mesure
+    <div className="min-h-screen bg-primary pt-24 pb-16">
+      <div className="container mx-auto px-4">
+        {/* En-tête */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Design Graphique
+          </h1>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Donnez vie à votre identité visuelle avec nos services de design graphique sur mesure
+          </p>
+        </motion.div>
+
+        {/* Services */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+          {services.map((service, index) => (
+            <ServiceCard key={index} {...service} index={index} />
+          ))}
+        </div>
+
+        {/* Processus */}
+        <div className="mb-24">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold text-white text-center mb-16"
+          >
+            Notre Processus
+          </motion.h2>
+          <div className="relative">
+            {process.map((step, index) => (
+              <ProcessStep key={index} {...step} />
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <div className="relative p-8 md:p-12 rounded-xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm" />
+            <div className="relative">
+              <h2 className="text-3xl font-bold text-white mb-6">
+                Prêt à Donner Vie à Vos Idées ?
+              </h2>
+              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Contactez-nous pour discuter de votre projet et découvrir comment nous pouvons vous aider
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <LinkButton to="/devis" size="lg">
-                  Demander un devis
-                </LinkButton>
-                <LinkButton to="/portfolio" variant="outline" size="lg">
-                  Voir nos réalisations
-                </LinkButton>
-              </div>
+              <a
+                href="/contact"
+                className="inline-flex items-center px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-300"
+              >
+                Démarrer votre projet
+              </a>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Nos Services Design
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <div
-                key={service.title}
-                className="stl-glass rounded-xl p-6 stl-fade-in"
-              >
-                <div className="h-12 w-12 mb-4 text-secondary">
-                  <span className="text-4xl">{service.icon}</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-2 stl-neon-text">
-                  {service.title}
-                </h3>
-                <p className="text-gray-400 mb-4">
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Portfolio Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Notre Portfolio
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div
-                key={item}
-                className="aspect-square bg-gray-800/50 rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300"
-              >
-                <div className="w-full h-full bg-gradient-to-br from-secondary/30 to-accent/30 flex items-center justify-center text-4xl">
-                  🎨
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <LinkButton to="/portfolio" variant="outline" size="lg">
-              Voir plus de projets
-            </LinkButton>
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Notre Processus Créatif
-          </h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-8">
-              {process.map((step, index) => (
-                <div key={step.title} className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center shrink-0">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                    <p className="text-gray-400">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tools Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Nos Outils
-          </h2>
-          <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
-            {['Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Figma'].map((tool) => (
-              <div
-                key={tool}
-                className="px-6 py-3 bg-gray-800/50 rounded-full text-secondary hover:bg-gray-800 transition-colors duration-300"
-              >
-                {tool}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="stl-glass rounded-2xl p-8 md:p-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 stl-neon-text">
-              Prêt à donner vie à vos idées ?
-            </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Contactez-nous dès aujourd'hui pour discuter de votre projet de design graphique
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <LinkButton to="/contact" size="lg">
-                Nous contacter
-              </LinkButton>
-              <LinkButton to="/portfolio" variant="outline" size="lg">
-                Voir le portfolio
-              </LinkButton>
-            </div>
-          </div>
-        </div>
-      </section>
+        </motion.div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default GraphicDesign
+export default GraphicDesign;
