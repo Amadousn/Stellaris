@@ -1,134 +1,151 @@
-import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import gsap from 'gsap'
-import Section from '../components/ui/Section'
+import React, { useEffect } from 'react'
+import StarryBackground from '../components/StarryBackground'
 import Button from '../components/ui/Button'
+import '../styles/ia-enhancements.css'
 
-const Home = () => {
-  const heroRef = useRef<HTMLDivElement>(null)
-
+const Home: React.FC = () => {
   useEffect(() => {
-    const tl = gsap.timeline()
-    
-    if (heroRef.current) {
-      tl.fromTo(
-        heroRef.current.children,
-        {
-          opacity: 0,
-          y: 50,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.2,
-        }
-      )
+    // Ajout de la classe pour l'animation du titre
+    const title = document.querySelector('.hero-title')
+    if (title) {
+      title.classList.add('stl-slide-up')
     }
   }, [])
 
-  const services = [
-    {
-      title: 'Création Site Internet',
-      description: 'Sites web modernes et responsifs adaptés à vos besoins',
-      path: '/creation-site-internet',
-      icon: '🌐',
-    },
-    {
-      title: 'Référencement Naturel',
-      description: 'Optimisation SEO pour une meilleure visibilité en ligne',
-      path: '/referencement-naturel',
-      icon: '📈',
-    },
-    {
-      title: 'Création Graphique',
-      description: 'Design graphique professionnel pour votre identité visuelle',
-      path: '/creation-graphique',
-      icon: '🎨',
-    },
-    {
-      title: 'Référencement Sponsorisé',
-      description: 'Campagnes publicitaires ciblées et efficaces',
-      path: '/referencement-sponsorise',
-      icon: '🎯',
-    },
-    {
-      title: 'Référencement Social',
-      description: 'Gestion et optimisation de vos réseaux sociaux',
-      path: '/referencement-social',
-      icon: '📱',
-    },
-    {
-      title: 'Référencement Vidéo',
-      description: 'Création et optimisation de contenu vidéo',
-      path: '/referencement-video',
-      icon: '🎥',
-    },
-  ]
-
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <div
-        ref={heroRef}
-        className="min-h-[80vh] flex items-center justify-center bg-gradient-to-b from-primary to-primary/50"
-      >
-        <div className="text-center max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent">
-            Solutions Marketing Digital Innovantes
+    <div className="min-h-screen relative overflow-hidden">
+      <StarryBackground />
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/40"></div>
+
+      <main className="relative z-10">
+        {/* Hero Section */}
+        <section className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+          <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent stl-neon-text">
+            Propulsez votre entreprise
+            <br />
+            vers les étoiles
           </h1>
-          <p className="text-xl text-gray-300 mb-8">
-            Développez votre présence en ligne avec nos services de marketing digital sur mesure
+
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto stl-fade-in" style={{ animationDelay: '0.3s' }}>
+            Sites web sur mesure, SEO, campagnes Ads, et plus encore.
+            <br />
+            Votre succès digital commence ici.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg">
-              Découvrir nos services
+
+          <div className="flex flex-wrap justify-center gap-4 stl-fade-in" style={{ animationDelay: '0.6s' }}>
+            <Button
+              to="/contact"
+              variant="primary"
+              size="lg"
+              className="hover:scale-105 hover:shadow-glow transition-all duration-300"
+            >
+              Démarrer votre projet
             </Button>
-            <Button variant="outline" size="lg">
-              Nous contacter
+            <Button
+              to="/portfolio"
+              variant="glass"
+              size="lg"
+              className="hover:scale-105 transition-all duration-300"
+            >
+              Voir nos réalisations
             </Button>
           </div>
-        </div>
-      </div>
 
-      {/* Services Section */}
-      <Section id="services">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Nos Services
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => (
-            <Link
-              key={service.path}
-              to={service.path}
-              className="group p-6 rounded-xl bg-gray-800/50 hover:bg-gray-800 transition-all duration-300"
+          {/* Scroll Indicator */}
+          <div className="stl-scroll-indicator">
+            <svg
+              className="w-6 h-6 text-white animate-bounce"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <span className="text-4xl mb-4 block">{service.icon}</span>
-              <h3 className="text-xl font-semibold mb-2 text-secondary group-hover:text-accent transition-colors duration-300">
-                {service.title}
-              </h3>
-              <p className="text-gray-400">
-                {service.description}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </Section>
+              <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+          </div>
+        </section>
 
-      {/* CTA Section */}
-      <Section className="bg-gradient-to-r from-secondary/20 to-accent/20">
-        <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Prêt à développer votre présence en ligne ?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Contactez-nous dès aujourd'hui pour discuter de vos projets et objectifs
-          </p>
-          <Button size="lg">
-            Demander un devis gratuit
-          </Button>
-        </div>
-      </Section>
+        {/* Services Section */}
+        <section className="py-20 px-4">
+          <div className="container mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 stl-neon-text">
+              Nos Services
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: '🌐',
+                  title: 'Sites Web',
+                  description: 'Sites vitrines et e-commerce sur mesure avec un design moderne et responsive.'
+                },
+                {
+                  icon: '📱',
+                  title: 'Applications',
+                  description: 'Applications web et mobiles performantes pour digitaliser votre activité.'
+                },
+                {
+                  icon: '🎨',
+                  title: 'Design',
+                  description: 'Identité visuelle unique et cohérente pour renforcer votre image de marque.'
+                },
+                {
+                  icon: '📈',
+                  title: 'SEO',
+                  description: 'Optimisation pour les moteurs de recherche et stratégie de contenu.'
+                },
+                {
+                  icon: '💡',
+                  title: 'Marketing',
+                  description: 'Campagnes publicitaires ciblées sur les réseaux sociaux et Google Ads.'
+                },
+                {
+                  icon: '🛠️',
+                  title: 'Maintenance',
+                  description: 'Support technique et mises à jour régulières de votre site web.'
+                }
+              ].map((service, index) => (
+                <div
+                  key={service.title}
+                  className="stl-glass p-6 rounded-xl stl-fade-in hover:scale-105 transition-all duration-300"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="text-4xl mb-4">{service.icon}</div>
+                  <h3 className="text-xl font-bold mb-2 text-white">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-300">
+                    {service.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 px-4">
+          <div className="container mx-auto">
+            <div className="stl-glass rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 stl-neon-text">
+                Prêt à décoller ?
+              </h2>
+              <p className="text-xl text-gray-300 mb-8">
+                Contactez-nous pour discuter de votre projet et obtenir un devis personnalisé
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Button to="/contact" variant="primary" size="lg">
+                  Nous contacter
+                </Button>
+                <Button to="/devis" variant="glass" size="lg">
+                  Demander un devis
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   )
 }

@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #0B1026;
+  --secondary: #4F46E5;
+  --accent: #06B6D4;
+}
+
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  
   body {
-    @apply bg-primary text-white font-sans;
+    @apply bg-primary text-white;
   }
 }
 
@@ -16,30 +18,47 @@
   .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
+
   .btn {
-    @apply px-6 py-2 rounded-lg font-medium transition-all duration-300;
+    @apply inline-flex items-center px-6 py-3 rounded-lg font-medium transition-all duration-300;
   }
-  
+
   .btn-primary {
-    @apply bg-secondary hover:bg-secondary/90 text-white;
+    @apply bg-gradient-to-r from-secondary to-accent text-white shadow-lg 
+           hover:shadow-secondary/50 hover:scale-105;
   }
-  
+
   .btn-outline {
-    @apply border-2 border-secondary text-secondary hover:bg-secondary hover:text-white;
+    @apply border-2 border-secondary text-white
+           hover:bg-secondary/10 hover:scale-105;
   }
 }
 
 @layer utilities {
   .bg-size-200 {
-    background-size: 200% 200%;
+    background-size: 200% 100%;
   }
-  
+
   .bg-pos-0 {
     background-position: 0% 0%;
   }
-  
+
   .bg-pos-100 {
-    background-position: 100% 100%;
+    background-position: 100% 0%;
   }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glass effect */
+.glass {
+  @apply bg-white/10 backdrop-blur-lg border border-white/20;
 }

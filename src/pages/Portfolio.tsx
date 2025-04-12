@@ -1,187 +1,233 @@
-import { useState, useEffect } from 'react'
-import Section from '../components/ui/Section'
+import React, { useState } from 'react'
 import Button from '../components/ui/Button'
-import PortfolioImage from '../components/PortfolioImage'
-import ImageLoader from '../components/ImageLoader'
-import LoadingScreen from '../components/LoadingScreen'
-import '../styles/animations.css'
+import '../styles/ia-enhancements.css'
 
-// Types pour les projets
-interface Project {
-  id: number
+type Project = {
+  id: string
   title: string
   description: string
-  category: string
   image: string
+  category: string
+  technologies: string[]
+  link: string
   client: string
-  year: number
+  year: string
 }
 
-const Portfolio = () => {
-  const [activeCategory, setActiveCategory] = useState('all')
-  const [loadingProgress, setLoadingProgress] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // Réinitialiser le scroll quand la catégorie change
-    window.scrollTo(0, 0)
-  }, [activeCategory])
-
-  // Données des projets avec les chemins d'images mis à jour
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: 'Refonte Identité Visuelle',
-      description: 'Création d\'une nouvelle identité de marque moderne et impactante',
-      category: 'branding',
-      image: '/portfolio/branding/brand1.jpg',
-      client: 'TechCorp',
-      year: 2024,
-    },
-    {
-      id: 2,
-      title: 'Campagne Marketing Digital',
-      description: 'Série de visuels pour les réseaux sociaux',
-      category: 'digital',
-      image: '/portfolio/digital/digital1.jpg',
-      client: 'EcoStart',
-      year: 2024,
-    },
-    {
-      id: 3,
-      title: 'Packaging Produit',
-      description: 'Design d\'emballage pour une gamme de produits bio',
-      category: 'print',
-      image: '/portfolio/print/print1.jpg',
-      client: 'NatureBio',
-      year: 2023,
-    },
-    {
-      id: 4,
-      title: 'Logo et Charte Graphique',
-      description: 'Développement complet de l\'identité visuelle',
-      category: 'branding',
-      image: '/portfolio/branding/brand2.jpg',
-      client: 'SportFit',
-      year: 2024,
-    },
-    {
-      id: 5,
-      title: 'Posts Instagram',
-      description: 'Création de templates pour les réseaux sociaux',
-      category: 'digital',
-      image: '/portfolio/digital/digital2.jpg',
-      client: 'BeautyLab',
-      year: 2024,
-    },
-    {
-      id: 6,
-      title: 'Brochure Commerciale',
-      description: 'Design et mise en page d\'une brochure de 24 pages',
-      category: 'print',
-      image: '/portfolio/print/print2.jpg',
-      client: 'ConsultPro',
-      year: 2023,
-    },
-  ]
+const Portfolio: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
   const categories = [
-    { id: 'all', name: 'Tous les Projets' },
-    { id: 'branding', name: 'Identité de Marque' },
-    { id: 'digital', name: 'Marketing Digital' },
-    { id: 'print', name: 'Print & Packaging' },
+    { id: 'all', name: 'Tous' },
+    { id: 'web', name: 'Sites Web' },
+    { id: 'ecommerce', name: 'E-commerce' },
+    { id: 'app', name: 'Applications' },
+    { id: 'design', name: 'Design' }
   ]
 
-  const filteredProjects = activeCategory === 'all'
-    ? projects
-    : projects.filter(project => project.category === activeCategory)
+  const projects: Project[] = [
+    {
+      id: 'eco-store',
+      title: 'Eco Store',
+      description: 'Boutique en ligne de produits écologiques avec un design moderne et une expérience utilisateur optimisée.',
+      image: '/portfolio/eco-store.jpg',
+      category: 'ecommerce',
+      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      link: 'https://eco-store.com',
+      client: 'Green Living Ltd',
+      year: '2024'
+    },
+    {
+      id: 'tech-blog',
+      title: 'Tech Blog',
+      description: 'Blog technologique avec un système de gestion de contenu personnalisé et une interface intuitive.',
+      image: '/portfolio/tech-blog.jpg',
+      category: 'web',
+      technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Prisma'],
+      link: 'https://tech-blog.com',
+      client: 'TechCorp',
+      year: '2024'
+    },
+    {
+      id: 'fitness-app',
+      title: 'Fitness App',
+      description: 'Application mobile de suivi fitness avec des fonctionnalités de coaching personnalisé.',
+      image: '/portfolio/fitness-app.jpg',
+      category: 'app',
+      technologies: ['React Native', 'Firebase', 'Redux', 'Node.js'],
+      link: 'https://fitness-app.com',
+      client: 'FitLife Inc',
+      year: '2023'
+    },
+    {
+      id: 'restaurant-site',
+      title: 'Le Gourmet',
+      description: 'Site vitrine pour un restaurant gastronomique avec réservation en ligne et menu interactif.',
+      image: '/portfolio/restaurant.jpg',
+      category: 'web',
+      technologies: ['Vue.js', 'Express', 'PostgreSQL', 'Stripe'],
+      link: 'https://le-gourmet.fr',
+      client: 'Le Gourmet Restaurant',
+      year: '2023'
+    },
+    {
+      id: 'art-gallery',
+      title: 'Digital Art Gallery',
+      description: 'Galerie d\'art numérique avec vente d\'œuvres NFT et expérience immersive.',
+      image: '/portfolio/art-gallery.jpg',
+      category: 'design',
+      technologies: ['Three.js', 'Web3.js', 'React', 'Solidity'],
+      link: 'https://digital-art-gallery.io',
+      client: 'ArtSpace',
+      year: '2023'
+    },
+    {
+      id: 'fashion-store',
+      title: 'Mode Élégante',
+      description: 'Boutique en ligne de mode haut de gamme avec personnalisation produit.',
+      image: '/portfolio/fashion-store.jpg',
+      category: 'ecommerce',
+      technologies: ['Shopify', 'React', 'Node.js', 'AWS'],
+      link: 'https://mode-elegante.fr',
+      client: 'Mode Élégante Paris',
+      year: '2023'
+    }
+  ]
 
-  if (isLoading) {
-    return (
-      <>
-        <LoadingScreen progress={loadingProgress} />
-        <ImageLoader
-          onProgress={setLoadingProgress}
-          onComplete={() => setIsLoading(false)}
-        />
-      </>
-    )
-  }
+  const filteredProjects = selectedCategory === 'all'
+    ? projects
+    : projects.filter(project => project.category === selectedCategory)
 
   return (
-    <div className="pt-24">
-      <Section>
-        <div className="max-w-4xl mx-auto text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent">
-            Notre Portfolio
+    <div className="min-h-screen relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/40"></div>
+
+      <main className="relative z-10 py-20">
+        {/* Header */}
+        <div className="container mx-auto px-4 text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent stl-neon-text">
+            Nos Réalisations
           </h1>
-          <p className="text-xl text-gray-300">
-            Découvrez nos réalisations en design graphique et identité visuelle
+          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+            Découvrez nos projets les plus récents et comment nous aidons nos clients à réussir dans le monde digital
           </p>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map(category => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`px-6 py-2 rounded-lg transition-all duration-300 ${
+                  selectedCategory === category.id
+                    ? 'bg-secondary text-white'
+                    : 'stl-glass text-gray-400 hover:text-white'
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Filtres */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                activeCategory === category.id
-                  ? 'bg-secondary text-white'
-                  : 'bg-gray-800/50 text-gray-300 hover:bg-gray-800'
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
+        {/* Projects Grid */}
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project, index) => (
+              <div
+                key={project.id}
+                className="stl-glass rounded-xl overflow-hidden stl-fade-in hover:scale-105 transition-all duration-300"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {/* Project Image */}
+                <div className="relative aspect-video bg-gray-800">
+                  <div className="absolute inset-0 flex items-center justify-center text-4xl">
+                    🖼️
+                  </div>
+                </div>
 
-        {/* Grille de projets avec animation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className="group relative bg-gray-800/50 rounded-xl overflow-hidden transform transition-all duration-500 hover:scale-[1.02]"
-              style={{
-                opacity: 0,
-                animation: `fadeIn 0.5s ease-out ${index * 0.1}s forwards`,
-              }}
-            >
-              {/* Image avec gestion du chargement */}
-              <PortfolioImage
-                src={project.image}
-                alt={project.title}
-                className="aspect-[4/3]"
-              />
+                {/* Project Info */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-400 mb-4">
+                    {project.description}
+                  </p>
 
-              {/* Overlay avec les informations */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/50 flex flex-col justify-end p-6 translate-y-8 group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-xl font-semibold mb-2 text-white">
-                  {project.title}
-                </h3>
-                <p className="text-gray-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                  {project.description}
-                </p>
-                <div className="flex justify-between items-center text-sm text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
-                  <span>{project.client}</span>
-                  <span>{project.year}</span>
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map(tech => (
+                      <span
+                        key={tech}
+                        className="px-2 py-1 text-xs rounded-full bg-secondary/20 text-secondary"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Project Details */}
+                  <div className="text-sm text-gray-400 mb-4">
+                    <div>Client: {project.client}</div>
+                    <div>Année: {project.year}</div>
+                  </div>
+
+                  {/* Action Button */}
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block"
+                  >
+                    <Button variant="glass" size="sm">
+                      Voir le projet
+                    </Button>
+                  </a>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">
-            Vous avez un projet en tête ?
-          </h2>
-          <Button size="lg" to="/devis">
-            Demander un devis
-          </Button>
+        {/* CTA Section */}
+        <div className="container mx-auto px-4 mt-20">
+          <div className="max-w-4xl mx-auto stl-glass rounded-2xl p-8 md:p-12 text-center">
+            <h2 className="text-3xl font-bold mb-6 stl-neon-text">
+              Prêt à lancer votre projet ?
+            </h2>
+            <p className="text-xl text-gray-300 mb-8">
+              Contactez-nous pour discuter de votre projet et découvrir comment nous pouvons vous aider
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button to="/contact" variant="primary" size="lg">
+                Démarrer votre projet
+              </Button>
+              <Button to="/pricing" variant="glass" size="lg">
+                Voir nos tarifs
+              </Button>
+            </div>
+          </div>
         </div>
-      </Section>
+
+        {/* Stats Section */}
+        <div className="container mx-auto px-4 mt-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="stl-glass p-6 rounded-xl text-center">
+              <div className="text-4xl font-bold text-white mb-2">50+</div>
+              <div className="text-gray-400">Projets réalisés</div>
+            </div>
+            <div className="stl-glass p-6 rounded-xl text-center">
+              <div className="text-4xl font-bold text-white mb-2">98%</div>
+              <div className="text-gray-400">Clients satisfaits</div>
+            </div>
+            <div className="stl-glass p-6 rounded-xl text-center">
+              <div className="text-4xl font-bold text-white mb-2">12</div>
+              <div className="text-gray-400">Prix remportés</div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   )
 }
