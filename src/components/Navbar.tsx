@@ -46,6 +46,8 @@ const Navbar: React.FC = () => {
         }`}
       >
         <div className="absolute inset-0 backdrop-blur-md bg-gradient-to-b from-primary/70 to-primary/30" />
+        {/* Bordure lumineuse subtile avec dégradé coloré */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500/30 to-purple-500/30 to-transparent" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 relative">
@@ -62,14 +64,20 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative text-base font-medium tracking-wide transition-all duration-300 ${
+                  className={`relative text-base font-medium tracking-wide transition-all duration-300 group ${
                     isActive(item.path)
-                      ? 'text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-secondary'
+                      ? 'text-white'
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
                   {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-secondary transition-all duration-300 group-hover:w-full" />
+                  {/* Indicateur de page active - Lueur subtile */}
+                  {isActive(item.path) && (
+                    <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-gradient-to-r from-indigo-400/60 to-purple-400/60" />
+                  )}
+                  
+                  {/* Effet de bordure au survol */}
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gradient-to-r from-indigo-400/60 to-purple-400/60 transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </div>
@@ -78,11 +86,11 @@ const Navbar: React.FC = () => {
           {/* Contact Button */}
           <div className="flex-shrink-0 w-32 flex justify-end">
             <div className="hidden md:block">
-              <Button to="/contact" variant="primary" size="sm" className="relative overflow-hidden group hover:scale-105 transition-transform duration-300">
-                <span className="relative z-10">Contact</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+              <Button to="/contact" variant="primary" size="sm" className="relative overflow-hidden group hover:scale-105 transition-transform duration-300 border border-indigo-400/20 bg-gradient-to-r from-indigo-900/70 to-purple-900/70">
+                <span className="relative z-10 bg-gradient-to-r from-white via-indigo-100 to-white bg-clip-text text-transparent font-medium">Contact</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
                 {/* Effet de reflet glissant */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent skew-x-12 -translate-x-full z-20 animate-shimmer"></div>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-gradient-to-r from-transparent via-white to-transparent skew-x-12 -translate-x-full z-20 animate-shimmer"></div>
               </Button>
             </div>
           </div>
@@ -126,23 +134,34 @@ const Navbar: React.FC = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 relative overflow-hidden ${
+                className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 relative overflow-hidden group ${
                   isActive(item.path)
-                    ? 'text-white bg-secondary/20'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ? 'text-white bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border-l-2 border-indigo-400/50'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent hover:border-indigo-400/20'
                 }`}
               >
+                {/* Effet de brillance au survol */}
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
+                
                 <span className="relative z-10">{item.label}</span>
                 <span
-                  className={`absolute inset-0 bg-secondary/10 transform transition-transform duration-300 ${
+                  className={`absolute inset-0 bg-gradient-to-r from-indigo-900/10 to-purple-900/10 transform transition-transform duration-300 ${
                     isActive(item.path) ? 'translate-x-0' : '-translate-x-full'
                   }`}
                 />
               </Link>
             ))}
-            <div className="pt-2 px-2">
-              <Button to="/contact" variant="primary" size="sm" className="w-full">
-                Contact
+            <div className="pt-4 px-2">
+              <Button 
+                to="/contact" 
+                variant="primary" 
+                size="sm" 
+                className="w-full bg-gradient-to-r from-indigo-900/70 to-purple-900/70 border border-indigo-400/20 relative overflow-hidden group"
+              >
+                {/* Effet de brillance */}
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
+                
+                <span className="relative z-10 bg-gradient-to-r from-white via-indigo-100 to-white bg-clip-text text-transparent font-medium">Contact</span>
               </Button>
             </div>
           </div>

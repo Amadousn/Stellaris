@@ -106,7 +106,7 @@ const Comptabilite = () => {
                 width: "4px",
                 height: "4px"
               }}
-            />
+            ></div>
           ))}
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
