@@ -1,0 +1,107 @@
+/* Styles pour le logo animé Stellaris */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+.logo-container {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.1;
+}
+
+.logo-text {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transform: translateZ(0);
+}
+
+/* Effet métallique argenté premium */
+.metallic-silver {
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(240, 240, 245, 0.9) 10%,
+    rgba(200, 200, 210, 0.9) 20%, 
+    rgba(150, 150, 170, 0.95) 30%,
+    rgba(120, 120, 140, 0.9) 40%, 
+    rgba(100, 100, 120, 0.85) 50%,
+    rgba(150, 150, 170, 0.9) 60%,
+    rgba(200, 200, 210, 0.85) 70%,
+    rgba(230, 230, 240, 0.9) 80%,
+    rgba(255, 255, 255, 0.95) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 
+    0 0 1px rgba(255, 255, 255, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 2px 5px rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(0 0 2px rgba(200, 200, 255, 0.4));
+}
+
+/* Effet de reflet animé avec dégradé bleu-violet-or */
+.reflection-gradient {
+  background: linear-gradient(
+    90deg, 
+    transparent 0%,
+    rgba(100, 150, 255, 0.1) 10%, 
+    rgba(150, 100, 255, 0.3) 20%,
+    rgba(200, 150, 255, 0.5) 30%,
+    rgba(255, 215, 0, 0.7) 50%,
+    rgba(200, 150, 255, 0.5) 70%,
+    rgba(150, 100, 255, 0.3) 80%,
+    rgba(100, 150, 255, 0.1) 90%,
+    transparent 100%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transform: skewX(-20deg) translateX(-100%);
+  width: 150%;
+  height: 100%;
+}
+
+/* Animation supplémentaire pour un effet plus dynamique */
+@keyframes subtle-pulse {
+  0% { opacity: 0.9; filter: brightness(0.95); }
+  50% { opacity: 1; filter: brightness(1.05); }
+  100% { opacity: 0.9; filter: brightness(0.95); }
+}
+
+@keyframes letter-spacing-animation {
+  0% { letter-spacing: 0.12em; }
+  50% { letter-spacing: 0.15em; }
+  100% { letter-spacing: 0.12em; }
+}
+
+.logo-text {
+  animation: 
+    subtle-pulse 4s infinite ease-in-out,
+    letter-spacing-animation 8s infinite ease-in-out;
+}
+
+/* Tailles spécifiques pour le logo */
+.logo-size-huge {
+  font-size: 4rem !important;
+  line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  .logo-size-huge {
+    font-size: 6rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo-size-huge {
+    font-size: 8rem !important;
+  }
+}
+
+/* Effet 3D subtil */
+.logo-3d {
+  transform: perspective(500px) rotateX(5deg);
+  transform-style: preserve-3d;
+}

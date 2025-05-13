@@ -1,0 +1,127 @@
+/* Styles pour le formulaire de contact amélioré */
+
+.contact-form-container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.contact-form {
+  position: relative;
+  background: rgba(10, 15, 40, 0.7);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(120, 120, 255, 0.1);
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet semi-flottant au survol */
+.contact-form:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(120, 120, 255, 0.15);
+}
+
+/* Variante avec bordure bleue */
+.contact-form-blue-border {
+  border: 1px solid rgba(100, 150, 255, 0.2);
+}
+
+.contact-form-blue-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(100, 150, 255, 0.15) 0%,
+    rgba(80, 120, 220, 0.1) 30%,
+    rgba(60, 90, 200, 0.05) 60%,
+    transparent 80%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Variante avec bordure dorée */
+.contact-form-gold-border {
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.contact-form-gold-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 215, 0, 0.15) 0%,
+    rgba(220, 190, 50, 0.1) 30%,
+    rgba(200, 170, 20, 0.05) 60%,
+    transparent 80%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+.contact-form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+}
+
+.contact-submit-button {
+  display: block;
+  width: 100%;
+  padding: 0.875rem;
+  margin-top: 1.5rem;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(100, 100, 255, 0.4);
+}
+
+/* Animation de l'effet de halo */
+@keyframes pulseHalo {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(0.98);
+  }
+}
+
+.contact-form::before {
+  animation: pulseHalo 4s infinite ease-in-out;
+}

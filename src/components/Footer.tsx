@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <h2 className="text-2xl md:text-3xl font-bold mb-4 stl-neon-text">
-                Restez informé
+                Recevoir les nouveautés
               </h2>
               <p className="text-gray-300">
                 Recevez nos actualités et conseils pour développer votre présence en ligne

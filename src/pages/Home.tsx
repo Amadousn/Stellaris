@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import StarryBackground from '../components/StarryBackground'
 import Button from '../components/ui/Button'
 import Timeline from '../components/Timeline'
 import { motion } from 'framer-motion'
@@ -17,20 +16,41 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, color, delay }) => {
   return (
     <motion.div
+      className="relative group overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-      className={`relative group overflow-hidden`}
+      transition={{ duration: 0.6, delay: delay || 0 }}
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
     >
+      {/* Fond avec effet glassmorphism */}
       <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm rounded-xl" />
-      <div className="relative p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors duration-300">
-        <div className={`text-4xl mb-4 ${color}`}>{icon}</div>
-        <h3 className="text-xl font-bold mb-2 text-white group-hover:text-blue-300 transition-colors duration-300">{title}</h3>
-        <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{description}</p>
+      
+      {/* Contenu de la carte */}
+      <div className="relative p-6 rounded-xl border border-secondary/20 hover:border-secondary/40 transition-all duration-300 overflow-hidden">
+        {/* Icône avec effet de lueur */}
+        <motion.div 
+          className={`text-4xl mb-4 ${color}`}
+          whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+        >
+          {icon}
+        </motion.div>
         
-        {/* Effet de glow subtil */}
-        <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors duration-300 rounded-xl" />
+        {/* Titre avec dégradé */}
+        <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+          {title}
+        </h3>
+        
+        {/* Description */}
+        <p className="text-gray-300 group-hover:text-white transition-colors duration-300">
+          {description}
+        </p>
+        
+        {/* Bordure lumineuse au survol */}
+        <motion.div 
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-secondary to-accent opacity-0 group-hover:opacity-100"
+          transition={{ duration: 0.3 }}
+        />
       </div>
     </motion.div>
   )
@@ -46,43 +66,180 @@ const Home: React.FC = () => {
   }, [])
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <StarryBackground />
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/40"></div>
+    <div className="min-h-screen relative overflow-hidden pt-40 pb-20">
+      {/* Background Premium avec étoiles */}
+      <div className="fixed inset-0 bg-primary z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-light via-primary to-primary-dark opacity-80" />
+        
+        {/* Effet d'étoiles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Petites étoiles */}
+          {[...Array(50)].map((_, i) => (
+            <div 
+              key={`star-small-${i}`}
+              className="absolute rounded-full bg-white w-0.5 h-0.5 animate-twinkle"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                opacity: Math.random() * 0.7
+              }}
+            />
+          ))}
+          
+          {/* Étoiles moyennes */}
+          {[...Array(20)].map((_, i) => (
+            <div 
+              key={`star-medium-${i}`}
+              className="absolute rounded-full bg-white w-1 h-1 animate-twinkle"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                opacity: Math.random() * 0.7
+              }}
+            />
+          ))}
+          
+          {/* Grandes étoiles avec lueur */}
+          {[...Array(10)].map((_, i) => (
+            <div 
+              key={`star-large-${i}`}
+              className="absolute"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+            >
+              <div 
+                className="rounded-full bg-white w-1.5 h-1.5 animate-pulse-slow"
+                style={{
+                  animationDelay: `${Math.random() * 5}s`,
+                  boxShadow: '0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.3)'
+                }}
+              />
+            </div>
+          ))}
+          
+          {/* Nébuleuse subtile */}
+          <div 
+            className="absolute rounded-full opacity-10 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, rgba(61, 90, 254, 0.3) 0%, rgba(61, 90, 254, 0) 70%)',
+              width: '40%',
+              height: '40%',
+              top: '30%',
+              left: '20%',
+              transform: 'rotate(-15deg)'
+            }}
+          />
+          
+          <div 
+            className="absolute rounded-full opacity-5 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, rgba(255, 213, 79, 0.3) 0%, rgba(255, 213, 79, 0) 70%)',
+              width: '50%',
+              height: '50%',
+              top: '10%',
+              right: '10%',
+              transform: 'rotate(15deg)'
+            }}
+          />
+        </div>
+      </div>
+      
+      {/* Particules flottantes simplifiées */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-secondary-light/30"
+            style={{
+              top: `${20 * i}%`,
+              left: `${15 * i}%`,
+              width: "2px",
+              height: "2px"
+            }}
+          />
+        ))}
+      </div>
 
       <main className="relative z-10">
         {/* Hero Section */}
         <section className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
-          <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent stl-neon-text">
-            Propulsez votre entreprise
-            <br />
-            vers les étoiles
-          </h1>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-wider">
+              <motion.span 
+                className="block bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                Propulsez votre entreprise
+              </motion.span>
+              <motion.span 
+                className="block mt-2 relative"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                vers les <span className="relative inline-block">
+                  <motion.span 
+                    className="bg-gradient-to-r from-secondary via-accent to-secondary-light bg-clip-text text-transparent"
+                    animate={{ backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    style={{ backgroundSize: '200% 100%' }}
+                  >
+                    étoiles
+                  </motion.span>
+                  <motion.div 
+                    className="absolute -inset-1 rounded-lg opacity-0"
+                    animate={{ opacity: [0, 0.4, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
+                    style={{ background: 'radial-gradient(circle, rgba(255,213,79,0.4) 0%, rgba(255,213,79,0) 70%)' }}
+                  />
+                </span>
+              </motion.span>
+            </h1>
+          </motion.div>
 
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto stl-fade-in" style={{ animationDelay: '0.3s' }}>
-            Sites web sur mesure, SEO, campagnes Ads, et plus encore.
-            <br />
-            Votre succès digital commence ici.
-          </p>
+          <motion.p 
+            className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-gray-300 tracking-wide"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <span className="block mb-2">Sites web sur mesure, SEO, campagnes Ads, et plus encore.</span>
+            <span className="block">Votre succès digital commence ici.</span>
+          </motion.p>
 
-          <div className="flex flex-wrap justify-center gap-4 stl-fade-in" style={{ animationDelay: '0.6s' }}>
+          <motion.div 
+            className="flex flex-wrap justify-center gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <Button
-              to="/contact"
+              to="/devis"
               variant="primary"
               size="lg"
-              className="hover:scale-105 hover:shadow-glow transition-all duration-300"
+              className="btn-primary hover-lift hover-glow"
             >
-              Démarrer votre projet
+              <span className="relative z-10">Démarrer votre projet</span>
             </Button>
             <Button
               to="/portfolio"
               variant="glass"
               size="lg"
-              className="hover:scale-105 transition-all duration-300"
+              className="glass hover-lift"
             >
-              Voir nos réalisations
+              <span className="relative z-10">Voir nos réalisations</span>
             </Button>
-          </div>
+          </motion.div>
 
           {/* Scroll Indicator */}
           <div className="stl-scroll-indicator">
@@ -103,7 +260,7 @@ const Home: React.FC = () => {
         <Timeline />
 
         {/* Services Section */}
-        <section className="py-32">
+        <section className="py-20 px-4">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -112,8 +269,9 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6 }}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl font-bold text-white mb-4">Nos Services</h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <h2 className="text-4xl font-bold mb-4 title-gradient animate-pulse-3d tracking-wide">NOS SERVICES</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-accent mx-auto mb-6 rounded-full"></div>
+              <p className="subtitle max-w-2xl mx-auto tracking-wide text-lg">
                 Des solutions sur mesure pour votre présence numérique
               </p>
             </motion.div>
@@ -123,42 +281,42 @@ const Home: React.FC = () => {
                 title="Création Web"
                 description="Sites web modernes et responsive, parfaitement adaptés à vos besoins"
                 icon={<FaGlobe className="w-8 h-8" />}
-                color="text-blue-400 group-hover:text-blue-300"
+                color="text-secondary group-hover:text-secondary-light"
                 delay={0}
               />
               <ServiceCard
                 title="Design Graphique"
                 description="Identité visuelle unique et supports marketing percutants"
                 icon={<FaPencilAlt className="w-8 h-8" />}
-                color="text-indigo-400 group-hover:text-indigo-300"
+                color="text-secondary group-hover:text-secondary-light"
                 delay={0.2}
               />
               <ServiceCard
                 title="SEO"
                 description="Optimisation pour les moteurs de recherche et visibilité en ligne"
                 icon={<FaSearch className="w-8 h-8" />}
-                color="text-violet-400 group-hover:text-violet-300"
+                color="text-accent group-hover:text-accent-light"
                 delay={0.4}
               />
               <ServiceCard
                 title="Marketing Digital"
                 description="Stratégies marketing efficaces pour atteindre vos objectifs"
                 icon={<FaChartLine className="w-8 h-8" />}
-                color="text-cyan-400 group-hover:text-cyan-300"
+                color="text-secondary group-hover:text-secondary-light"
                 delay={0.6}
               />
               <ServiceCard
                 title="Réseaux Sociaux"
                 description="Gestion professionnelle de vos réseaux sociaux"
                 icon={<FaInstagram className="w-8 h-8" />}
-                color="text-teal-400 group-hover:text-teal-300"
+                color="text-secondary-light group-hover:text-secondary"
                 delay={0.8}
               />
               <ServiceCard
                 title="Support Technique"
                 description="Assistance et maintenance continue de vos solutions"
                 icon={<FaHeadset className="w-8 h-8" />}
-                color="text-sky-400 group-hover:text-sky-300"
+                color="text-accent-light group-hover:text-accent"
                 delay={1}
               />
             </div>
@@ -168,22 +326,89 @@ const Home: React.FC = () => {
         {/* CTA Section */}
         <section className="py-20 px-4">
           <div className="container mx-auto">
-            <div className="stl-glass rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 stl-neon-text">
+            <motion.div 
+              className="glass-dark rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto border border-secondary/20 relative overflow-hidden"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              {/* Effet de particules léger */}
+              {[...Array(4)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full bg-secondary/20"
+                  style={{
+                    top: `${20 * i}%`,
+                    left: `${25 * i}%`,
+                    width: "4px",
+                    height: "4px"
+                  }}
+                  animate={{
+                    y: [-5, 5, -5],
+                    opacity: [0.3, 0.7, 0.3]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 3 + i,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+              
+              {/* Bordure lumineuse */}
+              <div className="absolute inset-0 border border-secondary/30 rounded-2xl opacity-50"></div>
+              
+              <motion.h2 
+                className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent tracking-wide"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
                 Prêt à décoller ?
-              </h2>
-              <p className="text-xl text-gray-300 mb-8">
+              </motion.h2>
+              
+              <motion.p 
+                className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
                 Contactez-nous pour discuter de votre projet et obtenir un devis personnalisé
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button to="/contact" variant="primary" size="lg">
-                  Nous contacter
-                </Button>
-                <Button to="/devis" variant="glass" size="lg">
-                  Demander un devis
-                </Button>
-              </div>
-            </div>
+              </motion.p>
+              
+              <motion.div 
+                className="flex flex-wrap justify-center gap-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                  <Button 
+                    to="/contact" 
+                    variant="primary" 
+                    size="lg"
+                    className="btn-primary shadow-lg hover:shadow-secondary/40"
+                  >
+                    <span className="relative z-10">Nous contacter</span>
+                  </Button>
+                </motion.div>
+                
+                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                  <Button 
+                    to="/devis" 
+                    variant="glass" 
+                    size="lg"
+                    className="btn-outline border-secondary/50 hover:border-secondary"
+                  >
+                    <span className="relative z-10">Demander un devis</span>
+                  </Button>
+                </motion.div>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
       </main>

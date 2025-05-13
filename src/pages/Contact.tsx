@@ -75,7 +75,7 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden py-20">
+    <div className="min-h-screen relative overflow-hidden pt-40 pb-20">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/40"></div>
 
       <div className="container mx-auto px-4 relative z-10">

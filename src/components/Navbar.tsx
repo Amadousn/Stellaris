@@ -36,33 +36,33 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 font-poppins ${
-        isScrolled ? 'py-2' : 'py-4'
+      className={`fixed w-full z-50 transition-all duration-500 font-poppins ${
+        isScrolled ? 'py-8' : 'py-14'
       }`}
     >
       <div
-        className={`absolute inset-0 transition-opacity duration-300 ${
+        className={`absolute inset-0 transition-all duration-500 ${
           isScrolled ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <div className="absolute inset-0 backdrop-blur-xl bg-primary/50" />
+        <div className="absolute inset-0 backdrop-blur-md bg-gradient-to-b from-primary/70 to-primary/30" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 relative">
-        <div className="flex items-center justify-between h-16">
+        <div className={`flex items-center justify-between ${isScrolled ? 'h-24' : 'h-36'} transition-all duration-500 px-10 border-b border-blue-500/20`}>
           {/* Logo */}
-          <div className="flex-shrink-0 w-40">
+          <div className="flex-shrink-0 scale-125">
             <Logo />
           </div>
 
           {/* Desktop Navigation */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-center ml-12">
             <div className="hidden md:flex items-center space-x-8">
               {navItems.map(item => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative text-sm font-medium tracking-wide transition-all duration-300 ${
+                  className={`relative text-base font-medium tracking-wide transition-all duration-300 ${
                     isActive(item.path)
                       ? 'text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-secondary'
                       : 'text-gray-400 hover:text-white'
@@ -78,8 +78,11 @@ const Navbar: React.FC = () => {
           {/* Contact Button */}
           <div className="flex-shrink-0 w-32 flex justify-end">
             <div className="hidden md:block">
-              <Button to="/contact" variant="primary" size="sm">
-                Contact
+              <Button to="/contact" variant="primary" size="sm" className="relative overflow-hidden group hover:scale-105 transition-transform duration-300">
+                <span className="relative z-10">Contact</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                {/* Effet de reflet glissant */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent skew-x-12 -translate-x-full z-20 animate-shimmer"></div>
               </Button>
             </div>
           </div>

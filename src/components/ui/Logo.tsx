@@ -2,153 +2,75 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Logo = () => {
-  // Animation complexe avec loopings
-  const flyingPath = {
-    x: [
-      -200, // Départ hors écran
-      100,  // Premier virage
-      0,    // Centre
-      -100, // Deuxième virage
-      50,   // Troisième virage
-      0     // Position finale
-    ],
-    y: [
-      100,  // Départ
-      -50,  // Monte
-      100,  // Descend pour le premier looping
-      -50,  // Remonte
-      0,    // Position finale
-    ],
-    rotate: [
-      -45,   // Angle initial
-      180,   // Premier looping
-      360,   // Deuxième looping
-      720,   // Troisième rotation
-      1080,  // Quatrième rotation
-      0      // Position finale
-    ],
-    scale: [
-      1,    // Taille normale
-      0.8,  // Plus petit pendant les loopings
-      1.2,  // Plus grand
-      0.8,  // Plus petit
-      1     // Taille finale
-    ]
-  };
-
+  // Logo premium avec animations optimisées
   return (
-    <Link to="/" className="group relative flex items-center">
-      <motion.div
-        initial={{ x: -200, y: 100, rotate: -45, scale: 1 }}
-        animate={flyingPath}
-        transition={{
-          duration: 3,
-          times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-          ease: "easeInOut"
-        }}
-        className="relative"
-      >
-        {/* Soucoupe volante */}
-        <div className="relative w-12 h-6">
-          {/* Corps principal */}
+    <Link to="/" className="group flex items-center">
+      <div className="flex items-center">
+        <div className="relative w-16 h-10">
+          {/* Soucoupe volante avec animation optimisée */}
           <motion.div 
-            className="absolute w-12 h-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"
-            animate={{
-              y: [0, -2, 0],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 3 // Commence après l'animation d'entrée
-            }}
+            className="w-16 h-4 bg-gradient-to-r from-indigo-800 via-blue-600 to-indigo-700 rounded-full shadow-lg border border-blue-400/50"
+            animate={{ y: [-2, 2, -2] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
-            {/* Dôme */}
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-6 h-3 bg-gradient-to-b from-blue-300 to-blue-500 rounded-full" />
+            {/* Dôme de la soucoupe avec effet de lueur */}
+            <motion.div 
+              className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-4 bg-gradient-to-b from-blue-300/90 to-indigo-600 rounded-full shadow-inner border border-indigo-300/70"
+              animate={{ boxShadow: ['inset 0 0 3px rgba(255, 255, 255, 0.5)', 'inset 0 0 8px rgba(255, 255, 255, 0.8)', 'inset 0 0 3px rgba(255, 255, 255, 0.5)'] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            />
             
-            {/* Lumières */}
-            <div className="absolute bottom-0 left-0 right-0 flex justify-around px-1">
-              {[...Array(5)].map((_, i) => (
+            {/* Lumières de la soucoupe avec effet de clignotement */}
+            <div className="absolute bottom-0 left-0 right-0 flex justify-around px-1.5">
+              {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="w-1 h-1 bg-yellow-300 rounded-full"
-                  animate={{
-                    opacity: [0.2, 1, 0.2],
-                    scale: [1, 1.2, 1]
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: i * 0.2 + 3 // Commence après l'animation d'entrée
-                  }}
+                  className="w-1 h-1 rounded-full bg-cyan-200"
+                  animate={{ opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }}
                 />
               ))}
             </div>
           </motion.div>
-
-          {/* Traînée d'énergie */}
-          <motion.div
-            className="absolute top-1/2 right-0 transform translate-x-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{
-              duration: 0.5,
-              repeat: Infinity,
-              repeatDelay: 0.2,
-            }}
-          >
-            <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-transparent" />
-          </motion.div>
-
-          {/* Rayon tracteur */}
-          <motion.div
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
-            initial={{ scaleY: 0, opacity: 0 }}
-            animate={{ scaleY: 1, opacity: [0, 0.5, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 3 // Commence après l'animation d'entrée
-            }}
-          >
-            <div className="w-8 h-8 bg-gradient-to-b from-blue-400/50 to-transparent transform origin-top" />
-          </motion.div>
         </div>
-
-        {/* Étoiles autour */}
-        <div className="absolute inset-0 -z-10">
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+        
+        {/* Texte STELLARIS avec effet métallique premium */}
+        <motion.div
+          className="ml-4 text-3xl font-serif uppercase tracking-wider"
+          style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="relative">
+            {/* Effet d'ombre pour effet 3D */}
+            <span 
+              className="absolute inset-0 blur-[0.5px] opacity-80" 
+              style={{ 
+                color: '#1E1B4B',
+                transform: 'translate(1px, 1px)',
               }}
-              animate={{
-                scale: [0, 1, 0],
-                opacity: [0, 1, 0]
+            >
+              STELLARIS
+            </span>
+            
+            {/* Effet métallique premium avec animation de gradient */}
+            <motion.span 
+              className="text-transparent bg-clip-text relative" 
+              style={{ 
+                backgroundImage: 'linear-gradient(135deg, #E0E7FF, #C7D2FE, #818CF8, #4F46E5, #818CF8, #C7D2FE, #E0E7FF)',
+                backgroundSize: '200% 100%',
+                WebkitBackgroundClip: 'text',
+                textShadow: '0 0 10px rgba(79, 70, 229, 0.3)'
               }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.3 + 3 // Commence après l'animation d'entrée
-              }}
-            />
-          ))}
-        </div>
-      </motion.div>
-      
-      {/* Texte */}
-      <motion.span
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, delay: 2.5 }} // Apparaît vers la fin de l'animation de la soucoupe
-        className="ml-3 text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent group-hover:opacity-80 transition-opacity"
-      >
-        Stellaris
-      </motion.span>
+              animate={{ backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            >
+              STELLARIS
+            </motion.span>
+          </div>
+        </motion.div>
+      </div>
     </Link>
   );
 };

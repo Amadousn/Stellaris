@@ -1,0 +1,105 @@
+/* Styles pour le composant Hero */
+
+/* Effet texturé pour les titres */
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: linear-gradient(
+    135deg,
+    rgba(230, 230, 250, 0.9) 0%,
+    rgba(200, 200, 255, 0.9) 25%,
+    rgba(180, 180, 220, 0.9) 50%,
+    rgba(200, 200, 255, 0.9) 75%,
+    rgba(230, 230, 250, 0.9) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 
+    0 0 1px rgba(200, 200, 255, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(0 0 2px rgba(180, 180, 255, 0.5));
+  animation: shimmer 8s infinite linear;
+}
+
+/* Effet argenté pour les sous-titres */
+.hero-subtitle {
+  background: linear-gradient(to bottom, 
+    rgba(240, 240, 255, 0.9) 0%, 
+    rgba(210, 210, 230, 0.9) 40%, 
+    rgba(180, 180, 200, 0.9) 60%, 
+    rgba(210, 210, 230, 0.9) 80%, 
+    rgba(240, 240, 255, 0.9) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-shadow: 
+    0 0 1px rgba(200, 200, 255, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation de scintillement pour le titre */
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Style pour les boutons */
+.hero-button {
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: linear-gradient(
+    45deg,
+    #e0e0ff,
+    #b0b0ff,
+    #9090ff,
+    #b0b0ff,
+    #e0e0ff
+  );
+  background-size: 400%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: borderAnimation 3s linear infinite;
+  border-radius: 0.5rem;
+}
+
+.hero-button:hover::before {
+  opacity: 1;
+}
+
+@keyframes borderAnimation {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

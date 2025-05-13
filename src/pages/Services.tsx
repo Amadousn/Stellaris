@@ -176,7 +176,7 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-primary pt-24 pb-16">
+    <div className="min-h-screen bg-primary pt-52 pb-20">
       {/* En-tête */}
       <div className="container mx-auto px-4">
         <motion.div

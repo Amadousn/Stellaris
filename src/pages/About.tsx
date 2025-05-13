@@ -1,27 +1,29 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaRocket, FaUsers, FaLightbulb, FaStar } from 'react-icons/fa';
+import React, { useEffect, useRef } from 'react'
+import Section from '../components/ui/Section'
+import { motion, useScroll, useTransform, useInView } from 'framer-motion'
+import StarryBackground from '../components/StarryBackground'
+import { FaRocket, FaUsers, FaLightbulb, FaStar } from 'react-icons/fa'
 
 interface StatCardProps {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-  delay: number;
+  icon: React.ReactNode
+  value: string
+  label: string
+  delay: number
 }
 
 interface TeamMemberProps {
-  name: string;
-  role: string;
-  image: string;
-  delay: number;
+  name: string
+  role: string
+  image: string
+  delay: number
 }
 
 interface TimelineItemProps {
-  year: string;
-  title: string;
-  description: string;
-  isLeft: boolean;
-  delay: number;
+  year: string
+  title: string
+  description: string
+  isLeft: boolean
+  delay: number
 }
 
 const StatCard: React.FC<StatCardProps> = ({ icon, value, label, delay }) => (
@@ -41,7 +43,7 @@ const StatCard: React.FC<StatCardProps> = ({ icon, value, label, delay }) => (
       <div className="text-gray-400">{label}</div>
     </div>
   </motion.div>
-);
+)
 
 const TeamMember: React.FC<TeamMemberProps> = ({ name, role, image, delay }) => (
   <motion.div
@@ -63,7 +65,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, image, delay }) => 
       <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
   </motion.div>
-);
+)
 
 const TimelineItem: React.FC<TimelineItemProps> = ({ year, title, description, isLeft, delay }) => (
   <div className="relative">
@@ -96,139 +98,243 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ year, title, description, i
       </div>
     </motion.div>
   </div>
-);
+)
 
-const About: React.FC = () => {
-  const stats = [
-    { icon: <FaRocket />, value: "150+", label: "Projets Réalisés", delay: 0.1 },
-    { icon: <FaUsers />, value: "98%", label: "Clients Satisfaits", delay: 0.2 },
-    { icon: <FaLightbulb />, value: "10+", label: "Années d'Expérience", delay: 0.3 },
-    { icon: <FaStar />, value: "500+", label: "Avis Positifs", delay: 0.4 }
-  ];
+const ShimmerText = ({ children, className = '' }: { children: React.ReactNode, className?: string }) => {
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      <div className="relative z-10">{children}</div>
+      <motion.div
+        className="absolute inset-0 opacity-30 bg-gradient-to-r from-transparent via-white to-transparent skew-x-12 -translate-x-full"
+        animate={{ translateX: ['0%', '200%'] }}
+        transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
+      />
+    </div>
+  );
+};
 
-  const team = [
-    {
-      name: "Sophie Martin",
-      role: "Directrice Créative",
-      image: "/images/team/sophie.jpg",
-      delay: 0.2
-    },
-    {
-      name: "Thomas Dubois",
-      role: "Lead Developer",
-      image: "/images/team/thomas.jpg",
-      delay: 0.3
-    },
-    {
-      name: "Emma Bernard",
-      role: "UI/UX Designer",
-      image: "/images/team/emma.jpg",
-      delay: 0.4
-    },
-    {
-      name: "Lucas Petit",
-      role: "Marketing Manager",
-      image: "/images/team/lucas.jpg",
-      delay: 0.5
-    }
-  ];
+const AnimatedIcon = ({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) => {
+  return (
+    <motion.div
+      className="text-lavender-400 w-8 h-8"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 20, repeat: Infinity, ease: "linear", delay }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
-  const timeline = [
-    {
-      year: "2015",
-      title: "Création de Stellaris",
-      description: "Lancement de l'agence avec une vision innovante du digital.",
-      isLeft: true,
-      delay: 0.2
-    },
-    {
-      year: "2017",
-      title: "Expansion Nationale",
-      description: "Ouverture de nouveaux bureaux et croissance de l'équipe.",
-      isLeft: false,
-      delay: 0.3
-    },
-    {
-      year: "2019",
-      title: "Innovation Technologique",
-      description: "Adoption des dernières technologies et méthodologies agiles.",
-      isLeft: true,
-      delay: 0.4
-    },
-    {
-      year: "2021",
-      title: "Leadership Digital",
-      description: "Reconnaissance comme leader dans la transformation digitale.",
-      isLeft: false,
-      delay: 0.5
-    },
-    {
-      year: "2023",
-      title: "Excellence & Impact",
-      description: "Plus de 150 projets réussis et impact durable.",
-      isLeft: true,
-      delay: 0.6
-    }
-  ];
+const About = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const Sparkles = () => {
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(15)].map((_, i) => {
+          const size = Math.random() * 4 + 2;
+          const opacity = useTransform(scrollYProgress, [0, 1], [0.1, 0.8]);
+          const y = useTransform(scrollYProgress, [0, 1], [0, Math.random() * 100 - 50]);
+          
+          return (
+            <motion.div
+              key={i}
+              className="absolute bg-white rounded-full"
+              style={{
+                width: size,
+                height: size,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                opacity,
+                y,
+                boxShadow: '0 0 4px 1px rgba(255, 255, 255, 0.4)',
+              }}
+              animate={{
+                opacity: [0.1, 0.8, 0.1],
+                scale: [0.8, 1.2, 0.8],
+              }}
+              transition={{
+                duration: Math.random() * 3 + 2,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+  
+  const AnimatedSection = ({ children, index = 0 }: { children: React.ReactNode, index?: number }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
+    
+    return (
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.8, delay: index * 0.2 }}
+        className="mb-20"
+      >
+        {children}
+      </motion.div>
+    );
+  };
 
   return (
-    <div className="min-h-screen bg-primary pt-24 pb-16">
-      <div className="container mx-auto px-4">
-        {/* En-tête */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Notre Histoire
-          </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Découvrez l'équipe passionnée derrière Stellaris et notre parcours vers l'excellence numérique
-          </p>
-        </motion.div>
-
-        {/* Statistiques */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
-          {stats.map((stat, index) => (
-            <StatCard key={index} {...stat} />
-          ))}
-        </div>
-
-        {/* Timeline */}
-        <div className="mb-24">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl font-bold text-white text-center mb-16"
-          >
-            Notre Parcours
-          </motion.h2>
-          <div className="relative">
-            {timeline.map((item, index) => (
-              <TimelineItem key={index} {...item} />
-            ))}
+    <div className="min-h-screen bg-primary relative overflow-hidden pt-40 pb-20">
+      <div className="absolute inset-0 z-0">
+        <StarryBackground />
+      </div>
+      <Sparkles />
+      
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: `${Math.random() * 200 + 100}px`,
+              height: `${Math.random() * 200 + 100}px`,
+              background: 'radial-gradient(circle, rgba(167,139,250,0.08) 0%, rgba(59,130,246,0.03) 70%, rgba(0,0,0,0) 100%)',
+              top: `${20 + Math.random() * 60}%`,
+              left: `${Math.random() * 80}%`,
+            }}
+            animate={{
+              x: [0, Math.random() * 40 - 20],
+              y: [0, Math.random() * 40 - 20],
+              scale: [1, Math.random() * 0.3 + 0.9, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: Math.random() * 20 + 15,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/40"></div>
+      
+      <div className="relative z-10">
+        <Section>
+          <div className="max-w-4xl mx-auto">
+            <AnimatedSection>
+              <ShimmerText>
+                <h1 className="text-4xl md:text-5xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-lavender-400 via-silver-300 to-lavender-500 animate-gradient-x tracking-wide">
+                  À Propos de Stellaris
+                </h1>
+              </ShimmerText>
+              
+              <p className="text-xl text-lavender-100 mb-16 tracking-wide leading-relaxed">
+                Chez Stellaris, nous partons d'un principe simple : chaque projet est unique.
+                C'est pourquoi nous avons conçu une approche agile, capable d'évoluer avec les besoins, les contextes et les ambitions.
+              </p>
+            </AnimatedSection>
+            
+            <div className="space-y-20">
+              <AnimatedSection index={1}>
+                <div className="relative">
+                  {/* Icône animée */}
+                  <div className="absolute -left-16 top-0 hidden md:block">
+                    <AnimatedIcon>
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                        <path d="M12 2L1 21h22L12 2zm0 4.6L19.1 19H4.9L12 6.6z" />
+                      </svg>
+                    </AnimatedIcon>
+                  </div>
+                  
+                  <h2 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 animate-gradient-x tracking-wide">
+                    Notre Approche
+                  </h2>
+                  <p className="text-lavender-100 leading-relaxed">
+                    Nous mettons notre expertise au service de vos idées pour leur donner forme avec clarté, ésthétisme et précision.
+                    Chaque collaboration est une immersion.
+                    Nous travaillons en lien direct avec nos clients pour comprendre leur vision, leurs objectifs et ce qui les rend singuliers. Une démarche qui repose sur la co-création, l'écoute active et une exigence constante de justesse.
+                  </p>
+                </div>
+              </AnimatedSection>
+              
+              <AnimatedSection index={2}>
+                <div className="relative">
+                  {/* Icône animée */}
+                  <div className="absolute -left-16 top-0 hidden md:block">
+                    <AnimatedIcon delay={2}>
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                      </svg>
+                    </AnimatedIcon>
+                  </div>
+                  
+                  <h2 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 animate-gradient-x tracking-wide">
+                    Notre Vision
+                  </h2>
+                  <p className="text-lavender-100 leading-relaxed">
+                    Portée par l'élan de sa création, Stellaris affirme une vision en mouvement, indépendante et à l'écoute de son époque.
+                    Rien n'est figé.
+                    Notre manière de faire évolue en permanence, avec souplesse et lucidité. C'est une façon de créer en perpétuelle réinvention, attentive au présent mais toujours tournée vers ce qui n'existe pas encore.
+                  </p>
+                </div>
+              </AnimatedSection>
+              
+              <AnimatedSection index={3}>
+                <div className="relative">
+                  {/* Icône animée */}
+                  <div className="absolute -left-16 top-0 hidden md:block">
+                    <AnimatedIcon delay={4}>
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 15.5h-2V13h2v5.5zm0-7.5h-2V5.5h2V11zm6 7.5h-2V9.5h2V19zm0-11.5h-2V5.5h2V7.5z" />
+                      </svg>
+                    </AnimatedIcon>
+                  </div>
+                  
+                  <h2 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 animate-gradient-x tracking-wide">
+                    Notre Engagement
+                  </h2>
+                  <p className="text-lavender-100 leading-relaxed">
+                    Nous accompagnons nos clients avec une vision large : de l'identité à la stratégie, du concept à la mise en œuvre, toujours avec cohérence et impact.
+                  </p>
+                </div>
+              </AnimatedSection>
+              
+              <AnimatedSection index={4}>
+                <div className="mt-16 p-8 rounded-2xl backdrop-blur-sm border border-lavender-400/20 relative overflow-hidden group">
+                  {/* Halo lumineux */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-lavender-400/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <h2 className="text-2xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 animate-gradient-x tracking-wide">
+                    Prêt à collaborer avec nous ?
+                  </h2>
+                  
+                  <div className="flex justify-center">
+                    <motion.a
+                      href="/contact"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="px-8 py-3 bg-gradient-to-r from-lavender-400 to-blue-500 text-white font-medium rounded-lg shadow-lg hover:shadow-lavender-400/20 transition-all duration-300 relative overflow-hidden group"
+                    >
+                      <span className="relative z-10">Discuter de votre projet</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                      
+                      {/* Effet de reflet glissant */}
+                      <motion.div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent skew-x-12 -translate-x-full z-20"
+                        animate={{ translateX: ['0%', '200%'] }}
+                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5 }}
+                      />
+                    </motion.a>
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
           </div>
-        </div>
-
-        {/* Équipe */}
-        <div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl font-bold text-white text-center mb-16"
-          >
-            Notre Équipe
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <TeamMember key={index} {...member} />
-            ))}
-          </div>
-        </div>
+        </Section>
       </div>
     </div>
   );

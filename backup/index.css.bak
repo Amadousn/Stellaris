@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0B1026;
+  --secondary: #4F46E5;
+  --accent: #06B6D4;
+  --lavender-400: #a78bfa;
+  --lavender-500: #8b5cf6;
+  --lavender-100: #ede9fe;
+  --silver-300: #d1d5db;
+  --amber-400: #fbbf24;
+  --amber-500: #f59e0b;
+}
+
+@layer components {
+  .container {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition-property: all;
+    transition-duration: 300ms;
+  }
+
+  .btn-primary {
+    background-image: linear-gradient(to right, var(--secondary), var(--accent));
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.5), 0 4px 6px -2px rgba(79, 70, 229, 0.25);
+    transform: scale(1.05);
+  }
+
+  .btn-outline {
+    border: 2px solid var(--secondary);
+    color: white;
+  }
+
+  .btn-outline:hover {
+    background-color: rgba(79, 70, 229, 0.1);
+    transform: scale(1.05);
+  }
+
+  .btn-secondary {
+    background-color: var(--primary-light);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--primary-light/80);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+    transform: scale(1.05);
+  }
+
+  .btn-gradient {
+    background-image: linear-gradient(to right, var(--secondary), var(--accent));
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-gradient:hover {
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.5), 0 4px 6px -2px rgba(79, 70, 229, 0.25);
+    transform: scale(1.05);
+  }
+}
+
+@layer utilities {
+  .bg-size-200 {
+    background-size: 200% 100%;
+  }
+
+  .bg-pos-0 {
+    background-position: 0% 0%;
+  }
+
+  .bg-pos-100 {
+    background-position: 100% 0%;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-x {
+  background-size: 200% 100%;
+  animation: gradient-x 3s ease infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) skewX(12deg); }
+  100% { transform: translateX(200%) skewX(12deg); }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Glass effect */
+.glass {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Custom text colors */
+.text-lavender-400 {
+  color: var(--lavender-400);
+}
+
+.text-lavender-500 {
+  color: var(--lavender-500);
+}
+
+.text-lavender-100 {
+  color: var(--lavender-100);
+}
+
+.text-silver-300 {
+  color: var(--silver-300);
+}
+
+/* Classes de texte personnalisées supprimées pour éviter les conflits */
+
+/* Custom background gradients */
+.bg-gradient-to-r.from-lavender-400.via-silver-300.to-lavender-500 {
+  background-image: linear-gradient(to right, var(--lavender-400), var(--silver-300), var(--lavender-500));
+}
+
+.bg-gradient-to-r.from-amber-400.via-yellow-300.to-amber-500 {
+  background-image: linear-gradient(to right, var(--amber-400), #fcd34d, var(--amber-500));
+}
+
+/* Classes personnalisées supprimées pour éviter les conflits */
