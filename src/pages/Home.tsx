@@ -430,7 +430,7 @@ const Home: React.FC = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                vers les <span className="relative inline-block">
+                <span className="text-white font-medium">vers les</span> <span className="relative inline-block">
                   <motion.span 
                     className="bg-gradient-to-r from-indigo-200 via-white to-purple-200 bg-clip-text text-transparent font-normal"
                     animate={{ backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'] }}

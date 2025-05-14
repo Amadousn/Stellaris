@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Button from './ui/Button'
-import Logo from './ui/Logo'
+import Logo from './Logo'
 import '../styles/ia-enhancements.css'
+import ThemeToggle from './ui/ThemeToggle'
+import { useTheme } from '../context/ThemeContext'
+import { FaSearch } from 'react-icons/fa'
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const location = useLocation()
+  const { theme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,8 +88,21 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Contact Button */}
-          <div className="flex-shrink-0 w-32 flex justify-end">
+          {/* Actions (Search, Theme, Contact) */}
+          <div className="flex-shrink-0 flex items-center space-x-4">
+            {/* Search Button */}
+            <button
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="p-2 rounded-full hover:bg-white/10 transition-colors duration-300"
+              aria-label="Rechercher"
+            >
+              <FaSearch className="text-gray-300 hover:text-white transition-colors duration-300" />
+            </button>
+            
+            {/* Theme Toggle */}
+            <ThemeToggle className="hidden md:block" />
+            
+            {/* Contact Button */}
             <div className="hidden md:block">
               <Button to="/contact" variant="primary" size="sm" className="relative overflow-hidden group hover:scale-105 transition-transform duration-300 border border-indigo-400/20 bg-gradient-to-r from-indigo-900/70 to-purple-900/70">
                 <span className="relative z-10 bg-gradient-to-r from-white via-indigo-100 to-white bg-clip-text text-transparent font-medium">Contact</span>
@@ -123,10 +141,31 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
+        {/* Search Bar */}
+        <div
+          className={`transition-all duration-300 overflow-hidden ${
+            isSearchOpen ? 'max-h-20 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
+          }`}
+        >
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Rechercher..."
+              className="w-full bg-white/10 border border-indigo-400/20 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+            />
+            <button
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-300"
+              aria-label="Lancer la recherche"
+            >
+              <FaSearch />
+            </button>
+          </div>
+        </div>
+        
         {/* Mobile Navigation */}
         <div
           className={`md:hidden transition-all duration-300 overflow-hidden ${
-            isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
@@ -151,7 +190,13 @@ const Navbar: React.FC = () => {
                 />
               </Link>
             ))}
-            <div className="pt-4 px-2">
+            <div className="pt-4 px-2 space-y-4">
+              {/* Theme Toggle in Mobile Menu */}
+              <div className="flex items-center justify-between px-4 py-2 rounded-lg bg-white/5">
+                <span className="text-sm text-gray-300">Changer de thème</span>
+                <ThemeToggle />
+              </div>
+              
               <Button 
                 to="/contact" 
                 variant="primary" 

@@ -8,3 +8,147 @@
     transform: translateY(0);
   }
 }
+
+/* Animations améliorées pour Stellaris */
+
+/* Animation du logo */
+.stellaris-logo-text {
+  background: linear-gradient(135deg, #e2e8f0 0%, #a0aec0 50%, #718096 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  position: relative;
+  text-shadow: 0 0 10px rgba(99, 179, 237, 0.3);
+  transition: all 0.3s ease;
+}
+
+.stellaris-logo-text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(99, 179, 237, 0) 0%, rgba(99, 179, 237, 0.3) 50%, rgba(99, 179, 237, 0) 100%);
+  background-size: 200% 200%;
+  mix-blend-mode: overlay;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Animation de pulsation subtile */
+@keyframes pulse-subtle {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 4s infinite ease-in-out;
+}
+
+/* Animation 3D */
+@keyframes pulse-3d {
+  0% { transform: translateZ(0) scale(1); }
+  50% { transform: translateZ(10px) scale(1.02); }
+  100% { transform: translateZ(0) scale(1); }
+}
+
+.animate-pulse-3d {
+  animation: pulse-3d 6s infinite ease-in-out;
+  transform-style: preserve-3d;
+}
+
+/* Animation de scintillement pour les étoiles */
+@keyframes twinkle {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.3; }
+}
+
+.animate-twinkle {
+  animation: twinkle 4s infinite ease-in-out;
+}
+
+/* Animation de slide-up pour les titres */
+@keyframes slide-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.stl-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+/* Effet de lueur pour les boutons */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(99, 179, 237, 0.5);
+}
+
+/* Effet de glassmorphisme */
+.glass-card {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(99, 179, 237, 0.2);
+}
+
+/* Animation pour les liens de navigation */
+.stl-nav-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Effet de texte néon */
+.stl-neon-text {
+  text-shadow: 0 0 5px rgba(99, 179, 237, 0.7), 0 0 10px rgba(99, 179, 237, 0.5);
+}
+
+/* Animation pour le scroll fluide */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Effet de dégradé pour les titres */
+.title-gradient {
+  background: linear-gradient(to right, #f7fafc, #edf2f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  color: #a0aec0;
+}
+
+/* Animation de transition de page */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}

@@ -19,12 +19,12 @@ const Logo = () => {
         transition: { duration: 0.1 }
       });
       
-      // Étape 1: La soucoupe arrive de l'extérieur de l'écran à toute vitesse
+      // Étape 1: La soucoupe commence hors écran
       await saucerControls.start({
-        x: -300,
-        y: 100,
-        rotate: 25,
-        scale: 0.6,
+        x: -150,
+        y: 0,
+        rotate: 0,
+        scale: 0.7,
         opacity: 0,
         transition: { duration: 0.1 }
       });
@@ -35,84 +35,56 @@ const Logo = () => {
         transition: { duration: 0.2 }
       });
       
-      // Étape 2: Entrée depuis le coin inférieur gauche
+      // Étape 2: Entrée rapide vers le centre de l'écran
       await saucerControls.start({
-        x: -50,
-        y: 50,
-        rotate: -15,
+        x: 0,
+        y: 0,
+        rotate: 5,
         scale: 0.8,
-        transition: { duration: 0.5, ease: "easeOut" }
+        transition: { duration: 0.4, ease: "easeOut" }
       });
       
-      // Étape 3: Traversée vers le haut droit
+      // Étape 3: Effet de zoom au centre (s'approche de nous)
       await saucerControls.start({
-        x: 200,
-        y: -80,
-        rotate: -25,
-        scale: 0.85,
-        transition: { duration: 0.8, ease: "easeInOut" }
+        scale: 1.3,
+        y: 10,
+        rotate: -5,
+        transition: { duration: 0.3, ease: "easeInOut" }
       });
       
-      // Étape 4: Virage vers le coin supérieur gauche
+      // Étape 4: Petit looping rapide et élégant (environ 2 secondes)
       await saucerControls.start({
-        x: -150,
-        y: -100,
-        rotate: 180,
-        scale: 0.9,
-        transition: { duration: 0.9, ease: "easeInOut" }
-      });
-      
-      // Étape 5: Descente en spirale
-      await saucerControls.start({
-        x: [0, 50, -50, 0],
-        y: [-50, 0, 50, 0],
-        rotate: [180, 360, 540, 720],
-        scale: [0.9, 1, 0.95, 1.1],
-        transition: { duration: 1.2, ease: "easeInOut" }
-      });
-      
-      // Étape 6: Passage rapide à droite puis à gauche
-      await saucerControls.start({
-        x: [0, 150, -150, 100],
-        y: [0, 30, -30, 20],
-        rotate: [0, -45, 45, -15],
-        scale: [1.1, 0.9, 0.9, 1.1],
-        transition: { duration: 1.5, ease: "easeInOut" }
-      });
-      
-      // Étape 7: Looping final avant atterrissage
-      await saucerControls.start({
-        x: [100, 50, 0, -50, -100, -50, 0, 50, 100],
-        y: [20, -50, -80, -50, 0, 50, 80, 50, 0],
-        rotate: [-15, 45, 90, 135, 180, 225, 270, 315, 360],
-        scale: [1.1, 1, 0.9, 0.8, 0.9, 1, 1.1, 1, 0.9],
+        x: [0, 50, 0, -50, 0],
+        y: [10, 30, -30, 0, 10],
+        rotate: [-5, 90, 180, 270, 360],
+        scale: [1.3, 1.2, 1.1, 1.2, 1.3],
         transition: { duration: 2, ease: "easeInOut" }
       });
       
-      // Étape 8: Accélération finale vers la position d'atterrissage
+      // Étape 5: Léger déplacement vers la droite
       await saucerControls.start({
-        x: 80,
-        y: 10,
+        x: 50,
+        y: 0,
         rotate: -10,
         scale: 1.2,
-        transition: { duration: 0.4, ease: "easeIn" }
+        transition: { duration: 0.3, ease: "easeInOut" }
       });
       
-      // Étape 9: Freinage express avec fumée
+      // Étape 5: Freinage avec fumée
       smokeControls.start({
-        opacity: [0, 0.9, 0.5, 0],
-        scale: [0.5, 1.8, 2.5, 3],
-        x: [0, -20, -40, -60],
-        transition: { duration: 1.2, ease: "easeOut" }
+        opacity: [0, 0.8, 0],
+        scale: [0.5, 1.5, 2],
+        x: [0, -20, -40],
+        transition: { duration: 0.8, ease: "easeOut" }
       });
       
-      // Atterrissage final avec rebond
+      // Atterrissage final
       await saucerControls.start({
         x: 0,
         y: 0,
         rotate: 0,
         scale: 1,
-        transition: { duration: 0.6, type: "spring", stiffness: 200, damping: 12, bounce: 0.5 }
+        transition: { duration: 0.3, type: "spring", stiffness: 300, damping: 15 }
       });
       
       // Étape 7: Apparition des étoiles scintillantes

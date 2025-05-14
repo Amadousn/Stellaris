@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Button from './ui/Button'
 import '../styles/ia-enhancements.css'
+import Logo from './Logo'
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -28,20 +29,20 @@ const Navigation: React.FC = () => {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'py-2 bg-primary/80 backdrop-blur-lg' : 'py-4'
+        isScrolled ? 'py-2 bg-primary/70 backdrop-blur-xl shadow-lg shadow-primary/10' : 'py-4'
       }`}
       role="navigation"
       aria-label="Navigation principale"
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          {/* Logo */}
+          {/* Logo Premium */}
           <Link
             to="/"
-            className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent stl-neon-text"
+            className="flex items-center space-x-2"
             aria-label="Accueil Stellaris"
           >
-            Stellaris
+            <Logo size="large" animate={true} />
           </Link>
 
           {/* Desktop Navigation */}
@@ -50,21 +51,22 @@ const Navigation: React.FC = () => {
               <Link
                 key={path}
                 to={path}
-                className={`text-lg font-medium transition-all duration-300 hover:text-secondary ${
+                className={`text-lg font-medium transition-all duration-300 hover:text-secondary relative ${
                   location.pathname === path
                     ? 'text-secondary font-semibold'
                     : 'text-white'
-                } stl-nav-link`}
+                } stl-nav-link group`}
                 aria-current={location.pathname === path ? 'page' : undefined}
               >
                 {label}
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-secondary to-accent group-hover:w-full transition-all duration-300 ${location.pathname === path ? 'w-full' : ''}`}></span>
               </Link>
             ))}
             <Button
               to="/devis"
               variant="primary"
               size="sm"
-              className="ml-4 hover:scale-105 hover:shadow-glow transition-all duration-300"
+              className="ml-4 hover:scale-105 hover:shadow-glow transition-all duration-300 animate-pulse-subtle"
             >
               Devis gratuit
             </Button>

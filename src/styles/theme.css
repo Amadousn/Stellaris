@@ -1,0 +1,171 @@
+/* Système de thème clair/sombre pour Stellaris */
+
+/* Variables par défaut (thème sombre) */
+:root {
+  /* Couleurs principales */
+  --color-primary: #0f172a;
+  --color-primary-light: #1e293b;
+  --color-primary-dark: #0a0f1a;
+  
+  /* Couleurs secondaires */
+  --color-secondary: #3b82f6;
+  --color-secondary-light: #60a5fa;
+  --color-secondary-dark: #2563eb;
+  
+  /* Couleurs d'accent */
+  --color-accent: #8b5cf6;
+  --color-accent-light: #a78bfa;
+  --color-accent-dark: #7c3aed;
+  
+  /* Texte */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #94a3b8;
+  
+  /* Fond */
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+  
+  /* Bordures */
+  --color-border: rgba(148, 163, 184, 0.2);
+  
+  /* Ombres */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+  
+  /* Effets */
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(148, 163, 184, 0.2);
+}
+
+/* Thème clair */
+.light-theme {
+  /* Couleurs principales */
+  --color-primary: #000000;
+  --color-primary-light: #111111;
+  --color-primary-dark: #000000;
+  
+  /* Couleurs secondaires - gardent leur teinte mais sont plus foncées pour contraste */
+  --color-secondary: #2563eb;
+  --color-secondary-light: #3b82f6;
+  --color-secondary-dark: #1d4ed8;
+  
+  /* Couleurs d'accent */
+  --color-accent: #7c3aed;
+  --color-accent-light: #8b5cf6;
+  --color-accent-dark: #6d28d9;
+  
+  /* Texte */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-tertiary: #64748b;
+  
+  /* Fond */
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-bg-tertiary: #e2e8f0;
+  
+  /* Bordures */
+  --color-border: rgba(100, 116, 139, 0.2);
+  
+  /* Ombres - plus légères en mode clair */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Effets */
+  --glass-bg: rgba(248, 250, 252, 0.8);
+  --glass-border: rgba(100, 116, 139, 0.2);
+}
+
+/* Application des variables CSS aux classes Tailwind */
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.bg-primary-light {
+  background-color: var(--color-primary-light) !important;
+}
+
+.bg-primary-dark {
+  background-color: var(--color-primary-dark) !important;
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary) !important;
+}
+
+.text-primary {
+  color: var(--color-text-primary) !important;
+}
+
+.text-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary) !important;
+}
+
+.border-primary {
+  border-color: var(--color-border) !important;
+}
+
+/* Styles pour les cartes glassmorphism */
+.glass-card {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+/* Améliorations pour les boutons */
+.btn-primary {
+  background-color: var(--color-secondary);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Animations améliorées pour les transitions de thème */
+.theme-transition {
+  transition: all 0.5s ease;
+}
+
+/* Styles pour le mode sombre spécifiques */
+.dark-theme .shadow-glow {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+/* Styles pour le mode clair spécifiques */
+.light-theme .shadow-glow {
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+}
+
+/* Ajustements pour les éléments de navigation */
+.nav-link {
+  color: var(--color-text-secondary);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--color-text-primary);
+}
+
+/* Styles pour les titres */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-primary);
+}

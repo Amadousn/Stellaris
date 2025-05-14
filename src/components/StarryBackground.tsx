@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { useTheme } from '../context/ThemeContext'
 
 interface Star {
   x: number;
@@ -13,6 +14,7 @@ interface Star {
 
 const StarryBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -110,7 +112,11 @@ const StarryBackground: React.FC = () => {
     
     const animate = () => {
       time += 0.005
-      ctx.fillStyle = 'rgba(11, 16, 38, 0.2)' // Dark blue background with trail effect
+      // Utiliser un fond différent selon le thème
+      const bgColor = theme === 'dark' 
+        ? 'rgba(11, 16, 38, 0.2)' // Fond bleu foncé pour le mode sombre (nuit)
+        : 'rgba(0, 0, 0, 0.2)' // Fond noir pour le mode clair (jour)
+      ctx.fillStyle = bgColor
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       
       // Draw nebulae
@@ -120,7 +126,11 @@ const StarryBackground: React.FC = () => {
           nebula.x, nebula.y, nebula.radius
         )
         grd.addColorStop(0, nebula.color.replace('0.05', '0.2'))
-        grd.addColorStop(1, 'rgba(11, 16, 38, 0)')
+        // Utiliser une couleur de fond différente selon le thème
+        const endColor = theme === 'dark' 
+          ? 'rgba(11, 16, 38, 0)' // Transparent vers bleu foncé pour le mode sombre (nuit)
+          : 'rgba(0, 0, 0, 0)' // Transparent vers noir pour le mode clair (jour)
+        grd.addColorStop(1, endColor)
         
         ctx.fillStyle = grd
         ctx.beginPath()

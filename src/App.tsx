@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -13,29 +14,46 @@ import Devis from './pages/Devis'
 import Portfolio from './pages/Portfolio'
 import About from './pages/About'
 import Pricing from './pages/Pricing'
+import Comptabilite from './pages/Comptabilite'
+import { ThemeProvider } from './context/ThemeContext'
+import LoadingSpinner from './components/ui/LoadingSpinner'
+import { Suspense } from 'react'
 
 function App() {
+  const location = useLocation();
+  
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/creation-site-internet" element={<WebCreation />} />
-          <Route path="/services/referencement-naturel" element={<Seo />} />
-          <Route path="/services/creation-graphique" element={<GraphicDesign />} />
-          <Route path="/services/referencement-sponsorise" element={<PaidAds />} />
-          <Route path="/services/referencement-social" element={<SocialMedia />} />
-          <Route path="/services/referencement-video" element={<VideoMarketing />} />
-          <Route path="/devis" element={<Devis />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/pricing" element={<Pricing />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen flex flex-col transition-colors duration-300">
+        <Navbar />
+        <main className="flex-grow">
+          <Suspense fallback={
+            <div className="flex items-center justify-center h-screen">
+              <LoadingSpinner size="large" color="secondary" />
+            </div>
+          }>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/services/creation-site-internet" element={<WebCreation />} />
+                <Route path="/services/referencement-naturel" element={<Seo />} />
+                <Route path="/services/creation-graphique" element={<GraphicDesign />} />
+                <Route path="/services/referencement-sponsorise" element={<PaidAds />} />
+                <Route path="/services/referencement-social" element={<SocialMedia />} />
+                <Route path="/services/referencement-video" element={<VideoMarketing />} />
+                <Route path="/devis" element={<Devis />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/comptabilite" element={<Comptabilite />} />
+              </Routes>
+            </AnimatePresence>
+          </Suspense>
+        </main>
+        <Footer />
+      </div>
+    </ThemeProvider>
   )
 }
 
