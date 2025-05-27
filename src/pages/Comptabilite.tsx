@@ -22,7 +22,7 @@ const Comptabilite = () => {
   // Configuration des animations
 
   return (
-    <div className="pt-40 pb-20 relative overflow-hidden min-h-screen">
+    <div className="pt-24 pb-20 relative overflow-hidden min-h-screen">
       <div className="absolute inset-0 z-0">
         <StarryBackground />
       </div>

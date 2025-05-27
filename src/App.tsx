@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import WebCreation from './pages/WebCreation'
@@ -13,7 +14,6 @@ import VideoMarketing from './pages/VideoMarketing'
 import Devis from './pages/Devis'
 import Portfolio from './pages/Portfolio'
 import About from './pages/About'
-import Pricing from './pages/Pricing'
 import Comptabilite from './pages/Comptabilite'
 import { ThemeProvider } from './context/ThemeContext'
 import LoadingSpinner from './components/ui/LoadingSpinner'
@@ -25,8 +25,9 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen flex flex-col transition-colors duration-300">
+        <ScrollToTop />
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-grow pt-16">
           <Suspense fallback={
             <div className="flex items-center justify-center h-screen">
               <LoadingSpinner size="large" color="secondary" />
@@ -45,7 +46,7 @@ function App() {
                 <Route path="/devis" element={<Devis />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/pricing" element={<Comptabilite />} />
                 <Route path="/comptabilite" element={<Comptabilite />} />
               </Routes>
             </AnimatePresence>

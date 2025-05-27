@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaLink, FaSearch } from 'react-icons/fa';
+import StarryBackground from '../components/StarryBackground';
+import Section from '../components/ui/Section';
 
 interface Project {
   id: string;
@@ -234,8 +236,30 @@ const Portfolio: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-primary pt-52 pb-20">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen pt-24 pb-20 relative overflow-hidden">
+      {/* Fond étoilé */}
+      <div className="absolute inset-0 z-0">
+        <StarryBackground />
+      </div>
+      
+      {/* Particules flottantes */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(10)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-secondary-light/30"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: "2px",
+              height: "2px"
+            }}
+          />
+        ))}
+      </div>
+      
+      <Section>
+        <div className="relative z-10">
         {/* En-tête */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -420,6 +444,7 @@ const Portfolio: React.FC = () => {
           )}
         </AnimatePresence>
       </div>
+      </Section>
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaGlobe, FaPencilAlt, FaSearch, FaVideo, FaInstagram, FaAd } from 'react-icons/fa';
+import StarryBackground from '../components/StarryBackground';
+import Section from '../components/ui/Section';
 
 interface ServiceCardProps {
   title: string;
@@ -176,9 +178,31 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-primary pt-52 pb-20">
+    <div className="min-h-screen pt-24 pb-20 relative overflow-hidden">
+      {/* Fond étoilé */}
+      <div className="absolute inset-0 z-0">
+        <StarryBackground />
+      </div>
+      
+      {/* Particules flottantes simplifiées */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-secondary-light/30"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: "2px",
+              height: "2px"
+            }}
+          />
+        ))}
+      </div>
+      
       {/* En-tête */}
-      <div className="container mx-auto px-4">
+      <Section>
+        <div className="relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -203,7 +227,8 @@ const Services: React.FC = () => {
             />
           ))}
         </div>
-      </div>
+        </div>
+      </Section>
     </div>
   );
 };

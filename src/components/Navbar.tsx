@@ -4,15 +4,25 @@ import Button from './ui/Button'
 import Logo from './Logo'
 import '../styles/ia-enhancements.css'
 import ThemeToggle from './ui/ThemeToggle'
-import { useTheme } from '../context/ThemeContext'
 import { FaSearch } from 'react-icons/fa'
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')  
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      // Dans une application réelle, cela redirigerait vers une page de résultats de recherche
+      // Pour l'instant, redirigeons vers la page Services qui est complète
+      setIsSearchOpen(false)
+      setSearchQuery('')
+      window.location.href = '/services'
+    }
+  }
   const location = useLocation()
-  const { theme } = useTheme()
+  // Le thème est géré via le composant ThemeToggle
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +41,7 @@ const Navbar: React.FC = () => {
     { path: '/services', label: 'Services' },
     { path: '/portfolio', label: 'Portfolio' },
     { path: '/about', label: 'À propos' },
-    { path: '/pricing', label: 'Tarifs' }
+    { path: '/comptabilite', label: 'Comptabilité' }
   ]
 
   const isActive = (path: string) => {
@@ -147,19 +157,22 @@ const Navbar: React.FC = () => {
             isSearchOpen ? 'max-h-20 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
           }`}
         >
-          <div className="relative">
+          <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
               placeholder="Rechercher..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white/10 border border-indigo-400/20 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
             />
             <button
+              type="submit"
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-300"
               aria-label="Lancer la recherche"
             >
               <FaSearch />
             </button>
-          </div>
+          </form>
         </div>
         
         {/* Mobile Navigation */}

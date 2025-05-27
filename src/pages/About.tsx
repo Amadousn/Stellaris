@@ -187,7 +187,7 @@ const About = () => {
   };
 
   return (
-    <div className="min-h-screen bg-primary relative overflow-hidden pt-40 pb-20">
+    <div className="min-h-screen bg-primary relative overflow-hidden pt-24 pb-20">
       <div className="absolute inset-0 z-0">
         <StarryBackground />
       </div>

@@ -8,28 +8,17 @@ const Footer: React.FC = () => {
 
   const footerLinks = {
     services: [
-      { label: 'Création Web', path: '/services#web' },
-      { label: 'Applications', path: '/services#apps' },
-      { label: 'Design Graphique', path: '/services#design' },
-      { label: 'SEO', path: '/services#seo' },
-      { label: 'Marketing Digital', path: '/services#marketing' }
+      { label: 'Création Web', path: '/services/creation-site-internet' },
+      { label: 'Design Graphique', path: '/services/creation-graphique' },
+      { label: 'SEO', path: '/services/referencement-naturel' },
+      { label: 'Publicité en ligne', path: '/services/referencement-sponsorise' },
+      { label: 'Réseaux Sociaux', path: '/services/referencement-social' }
     ],
     company: [
       { label: 'À propos', path: '/about' },
       { label: 'Portfolio', path: '/portfolio' },
-      { label: 'Carrières', path: '/careers' },
-      { label: 'Blog', path: '/blog' }
-    ],
-    legal: [
-      { label: 'Mentions légales', path: '/legal' },
-      { label: 'Politique de confidentialité', path: '/privacy' },
-      { label: 'CGV', path: '/terms' }
-    ],
-    social: [
-      { label: 'LinkedIn', path: 'https://linkedin.com', external: true },
-      { label: 'Twitter', path: 'https://twitter.com', external: true },
-      { label: 'Instagram', path: 'https://instagram.com', external: true },
-      { label: 'GitHub', path: 'https://github.com', external: true }
+      { label: 'Comptabilité', path: '/comptabilite' },
+      { label: 'Devis', path: '/devis' }
     ]
   }
 
@@ -74,20 +63,6 @@ const Footer: React.FC = () => {
             <p className="text-gray-400 mb-6">
               Solutions digitales innovantes pour propulser votre entreprise vers de nouveaux horizons.
             </p>
-            <div className="flex space-x-4">
-              {footerLinks.social.map(({ label, path }) => (
-                <a
-                  key={label}
-                  href={path}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                  aria-label={`Visitez notre page ${label}`}
-                >
-                  <span className="text-xl">{label[0]}</span>
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Services Links */}
@@ -129,19 +104,19 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold text-white mb-6">Contact</h3>
             <ul className="space-y-3 text-gray-400">
               <li>
-                <a href="tel:+33123456789" className="hover:text-white transition-colors duration-300">
-                  +33 1 23 45 67 89
+                <a href="tel:+33752036246" className="hover:text-white transition-colors duration-300">
+                  07 52 03 62 46
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@stellaris.fr" className="hover:text-white transition-colors duration-300">
-                  contact@stellaris.fr
+                <a href="mailto:contact@stellariscreations.com" className="hover:text-white transition-colors duration-300">
+                  contact@stellariscreations.com
                 </a>
               </li>
               <li>
                 <address className="not-italic">
-                  123 Avenue des Étoiles<br />
-                  75000 Paris, France
+                  115 rue du Général-Leclerc<br />
+                  93220 Gagny
                 </address>
               </li>
             </ul>
@@ -150,22 +125,10 @@ const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex justify-center items-center">
             <div className="text-gray-400 text-sm">
               {currentYear} Stellaris. Tous droits réservés.
             </div>
-            <ul className="flex flex-wrap justify-center gap-6 text-sm">
-              {footerLinks.legal.map(({ label, path }) => (
-                <li key={label}>
-                  <Link
-                    to={path}
-                    className="text-gray-400 hover:text-white transition-colors duration-300"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Button from '../components/ui/Button'
 import { motion } from 'framer-motion'
-import { FaGlobe, FaPencilAlt, FaSearch, FaChartLine, FaInstagram, FaHeadset } from 'react-icons/fa'
+import { FaGlobe, FaPencilAlt, FaSearch, FaChartLine, FaInstagram, FaCalculator } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Timeline from '../components/Timeline'
 import '../styles/ia-enhancements.css'
@@ -67,7 +67,7 @@ const Home: React.FC = () => {
   }, [])
 
   return (
-    <div className="min-h-screen relative overflow-hidden pt-40 pb-20">
+    <div className="min-h-screen relative overflow-hidden pt-24 pb-20">
       {/* Background Premium avec étoiles */}
       <div className="fixed inset-0 bg-primary z-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-light via-primary to-primary-dark opacity-80" />
@@ -456,7 +456,7 @@ const Home: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <span className="block mb-2">Sites web sur mesure, SEO, campagnes Ads, et plus encore.</span>
+            <span className="block mb-2">Sites web sur mesure, SEO, comptabilité, campagnes Ads, et plus encore.</span>
             <span className="block">Votre succès digital commence ici.</span>
           </motion.p>
 
@@ -665,22 +665,24 @@ const Home: React.FC = () => {
                 </div>
               </motion.div>
               
+
+              
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
                 className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-white/10 transition-all duration-300"
               >
                 <div className="p-8 relative">
                   <div className="text-4xl mb-6 text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                    <FaHeadset className="w-8 h-8" />
+                    <FaCalculator className="w-8 h-8" />
                   </div>
                   <h3 className="text-xl font-medium mb-4 text-white">
-                    Support Technique
+                    Comptabilité
                   </h3>
                   <p className="text-gray-300 group-hover:text-white transition-colors duration-300 font-light">
-                    Assistance et maintenance continue de vos solutions
+                    Gestion comptable professionnelle et optimisation fiscale
                   </p>
                   <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>

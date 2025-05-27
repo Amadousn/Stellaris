@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaPalette, FaRocket, FaPencilAlt, FaImage, FaVideo, FaMagic, FaSearch, FaLightbulb } from 'react-icons/fa';
+import StarryBackground from '../components/StarryBackground';
+import Section from '../components/ui/Section';
+import Button from '../components/ui/Button';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -201,8 +204,29 @@ const GraphicDesign: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-primary pt-24 pb-16">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen pt-24 pb-40 relative overflow-hidden">
+      {/* Fond étoilé */}
+      <div className="absolute inset-0 z-0">
+        <StarryBackground />
+      </div>
+      
+      {/* Particules flottantes simplifiées */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-secondary-light/30"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: "2px",
+              height: "2px"
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         {/* En-tête */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -243,30 +267,77 @@ const GraphicDesign: React.FC = () => {
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <div className="relative p-8 md:p-12 rounded-xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm" />
-            <div className="relative">
-              <h2 className="text-3xl font-bold text-white mb-6">
-                Prêt à Donner Vie à Vos Idées ?
-              </h2>
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Contactez-nous pour discuter de votre projet et découvrir comment nous pouvons vous aider
-              </p>
-              <a
-                href="/contact"
-                className="inline-flex items-center px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-300"
+        <Section>
+          <motion.div 
+            className="bg-gray-900/40 backdrop-blur-sm p-10 rounded-xl border border-gray-800 hover:border-blue-500/30 relative overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Effet de particules léger */}
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full bg-blue-500/20"
+                style={{
+                  top: `${20 * i}%`,
+                  left: `${25 * i}%`,
+                  width: "4px",
+                  height: "4px"
+                }}
+                animate={{
+                  y: [-5, 5, -5],
+                  opacity: [0.3, 0.7, 0.3]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 3 + i,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+            
+            <div className="text-center relative z-10">
+              <motion.h2 
+                className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent tracking-wide"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Démarrer votre projet
-              </a>
+                Prêt à Donner Vie à Vos Idées ?
+              </motion.h2>
+              <motion.p 
+                className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                Contactez-nous pour discuter de votre projet et découvrir comment nous pouvons vous aider
+              </motion.p>
+              <motion.div 
+                className="flex flex-wrap justify-center gap-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                  <Button to="/devis" size="lg" className="btn-primary shadow-lg hover:shadow-blue-500/40">
+                    <span className="relative z-10">Demander un devis</span>
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                  <Button to="/contact" variant="glass" size="lg" className="btn-outline border-blue-500/50 hover:border-blue-500">
+                    <span className="relative z-10">Nous contacter</span>
+                  </Button>
+                </motion.div>
+              </motion.div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </Section>
       </div>
     </div>
   );
