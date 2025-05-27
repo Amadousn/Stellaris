@@ -1,43 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" 
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+  <!-- Page d'accueil -->
   <url>
     <loc>https://stellariscreations.com/</loc>
     <lastmod>2025-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://stellariscreations.com/images/stellaris-logo.png</image:loc>
+      <image:title>Stellaris - Agence de Marketing Digital</image:title>
+    </image:image>
   </url>
+  
+  <!-- Pages de services -->
   <url>
     <loc>https://stellariscreations.com/services</loc>
     <lastmod>2025-05-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
+  
   <url>
     <loc>https://stellariscreations.com/services/creation-site-internet</loc>
     <lastmod>2025-05-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://stellariscreations.com/images/web-creation.jpg</image:loc>
+      <image:title>Création de sites internet professionnels</image:title>
+    </image:image>
   </url>
+  
   <url>
     <loc>https://stellariscreations.com/services/referencement-naturel</loc>
     <lastmod>2025-05-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://stellariscreations.com/images/seo.jpg</image:loc>
+      <image:title>Services de référencement naturel (SEO)</image:title>
+    </image:image>
   </url>
+  
+  <url>
+    <loc>https://stellariscreations.com/services/creation-graphique</loc>
+    <lastmod>2025-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://stellariscreations.com/services/referencement-sponsorise</loc>
+    <lastmod>2025-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <url>
     <loc>https://stellariscreations.com/services/referencement-social</loc>
     <lastmod>2025-05-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://stellariscreations.com/images/social-media.jpg</image:loc>
+      <image:title>Gestion des réseaux sociaux</image:title>
+    </image:image>
   </url>
+  
+  <url>
+    <loc>https://stellariscreations.com/services/referencement-video</loc>
+    <lastmod>2025-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Comptabilité -->
   <url>
     <loc>https://stellariscreations.com/comptabilite</loc>
     <lastmod>2025-05-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://stellariscreations.com/images/accounting.jpg</image:loc>
+      <image:title>Services de comptabilité pour entreprises</image:title>
+    </image:image>
   </url>
+  
+  <!-- Pages d'information -->
   <url>
     <loc>https://stellariscreations.com/about</loc>
+    <lastmod>2025-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://stellariscreations.com/portfolio</loc>
+    <lastmod>2025-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://stellariscreations.com/devis</loc>
+    <lastmod>2025-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://stellariscreations.com/contact</loc>
     <lastmod>2025-05-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

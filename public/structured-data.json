@@ -1,0 +1,53 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Stellaris",
+  "alternateName": "Stellaris Créations",
+  "url": "https://stellariscreations.com",
+  "logo": "https://stellariscreations.com/images/stellaris-logo.png",
+  "description": "Agence de marketing digital offrant des services de création web, référencement, réseaux sociaux et comptabilité pour les entreprises",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Avenue des Étoiles",
+    "addressLocality": "Paris",
+    "postalCode": "75000",
+    "addressCountry": "FR"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+33-1-23-45-67-89",
+    "contactType": "customer service",
+    "email": "contact@stellariscreations.com",
+    "availableLanguage": ["French", "English"]
+  },
+  "sameAs": [
+    "https://www.facebook.com/stellariscreations",
+    "https://www.instagram.com/stellariscreations",
+    "https://www.linkedin.com/company/stellariscreations"
+  ],
+  "offers": {
+    "@type": "AggregateOffer",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Création de site web",
+        "description": "Création de sites web professionnels et responsives"
+      },
+      {
+        "@type": "Offer",
+        "name": "Référencement naturel",
+        "description": "Optimisation SEO pour améliorer votre visibilité sur les moteurs de recherche"
+      },
+      {
+        "@type": "Offer",
+        "name": "Gestion des réseaux sociaux",
+        "description": "Animation et gestion de vos comptes sur les réseaux sociaux"
+      },
+      {
+        "@type": "Offer",
+        "name": "Services de comptabilité",
+        "description": "Gestion comptable et fiscale pour entreprises et indépendants"
+      }
+    ]
+  }
+}
