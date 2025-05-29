@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import Section from '../components/ui/Section'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import StarryBackground from '../components/StarryBackground'
@@ -313,22 +314,25 @@ const About = () => {
                   </h2>
                   
                   <div className="flex justify-center">
-                    <motion.a
-                      href="/contact"
+                    <motion.div
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.98 }}
-                      className="px-8 py-3 bg-gradient-to-r from-lavender-400 to-blue-500 text-white font-medium rounded-lg shadow-lg hover:shadow-lavender-400/20 transition-all duration-300 relative overflow-hidden group"
                     >
-                      <span className="relative z-10">Discuter de votre projet</span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-                      
-                      {/* Effet de reflet glissant */}
-                      <motion.div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent skew-x-12 -translate-x-full z-20"
-                        animate={{ translateX: ['0%', '200%'] }}
-                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5 }}
-                      />
-                    </motion.a>
+                      <Link
+                        to="/contact?type=quote&source=about"
+                        className="inline-block px-8 py-3 bg-gradient-to-r from-lavender-400 to-blue-500 text-white font-medium rounded-lg shadow-lg hover:shadow-lavender-400/20 transition-all duration-300 relative overflow-hidden group"
+                      >
+                        <span className="relative z-10">Discuter de votre projet</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                        
+                        {/* Effet de reflet glissant */}
+                        <motion.div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent skew-x-12 -translate-x-full z-20"
+                          animate={{ translateX: ['0%', '200%'] }}
+                          transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5 }}
+                        />
+                      </Link>
+                    </motion.div>
                   </div>
                 </div>
               </AnimatedSection>

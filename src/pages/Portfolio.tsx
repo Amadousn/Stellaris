@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaLink, FaSearch } from 'react-icons/fa';
 import StarryBackground from '../components/StarryBackground';
@@ -342,17 +343,20 @@ const Portfolio: React.FC = () => {
               <p className="text-gray-300 mb-6">
                 Notre équipe est prête à transformer votre vision en réalité. Contactez-nous pour discuter de votre prochain projet digital et obtenir un devis personnalisé.
               </p>
-              <motion.a
-                href="/contact"
+              <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
               >
-                Discuter de votre projet
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </motion.a>
+                <Link
+                  to="/contact?type=quote&source=portfolio"
+                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
+                >
+                  Discuter de votre projet
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+              </motion.div>
             </div>
             <div className="flex justify-center">
               <motion.div
@@ -384,7 +388,8 @@ const Portfolio: React.FC = () => {
           </div>
         </motion.div>
         
-        {/* Témoignages */}
+        {/* Témoignages - Temporairement commentés en attendant de vrais témoignages */}
+        {/*
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -433,6 +438,7 @@ const Portfolio: React.FC = () => {
             ))}
           </div>
         </motion.div>
+        */}
 
         {/* Modal */}
         <AnimatePresence>

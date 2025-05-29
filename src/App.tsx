@@ -11,10 +11,10 @@ import GraphicDesign from './pages/GraphicDesign'
 import PaidAds from './pages/PaidAds'
 import SocialMedia from './pages/SocialMedia'
 import VideoMarketing from './pages/VideoMarketing'
-import Devis from './pages/Devis'
 import Portfolio from './pages/Portfolio'
 import About from './pages/About'
 import Comptabilite from './pages/Comptabilite'
+import ContactForm from './pages/ContactForm'
 import { ThemeProvider } from './context/ThemeContext'
 import LoadingSpinner from './components/ui/LoadingSpinner'
 import { Suspense } from 'react'
@@ -43,11 +43,12 @@ function App() {
                 <Route path="/services/referencement-sponsorise" element={<PaidAds />} />
                 <Route path="/services/referencement-social" element={<SocialMedia />} />
                 <Route path="/services/referencement-video" element={<VideoMarketing />} />
-                <Route path="/devis" element={<Devis />} />
+                <Route path="/devis" element={<ContactForm />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/pricing" element={<Comptabilite />} />
                 <Route path="/comptabilite" element={<Comptabilite />} />
+                <Route path="/contact" element={<ContactForm />} />
               </Routes>
             </AnimatePresence>
           </Suspense>

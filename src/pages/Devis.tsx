@@ -1,14 +1,48 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Section from '../components/ui/Section'
 import ContactForm from '../components/ContactForm'
 import VideoDevisForm from '../components/forms/VideoDevisForm'
+import WebAppProjectForm from '../components/forms/WebAppProjectForm'
 import FloatingContactForm from '../components/forms/FloatingContactForm'
 import StarryBackground from '../components/StarryBackground'
 import { motion } from 'framer-motion'
-import { FaRocket, FaFileInvoiceDollar, FaHandshake, FaVideo, FaGlobe, FaComments } from 'react-icons/fa'
+import { FaVideo, FaGlobe, FaComments } from 'react-icons/fa'
 
 const Devis = () => {
-  const [formType, setFormType] = useState<'intro' | 'video' | 'web' | 'other'>('intro');
+  const location = useLocation();
+  const [formType, setFormType] = useState<'intro' | 'video' | 'web' | 'graphique' | 'marketing' | 'other'>('intro');
+  
+  // Récupérer les paramètres d'URL pour pré-sélectionner une formule
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const type = params.get('type');
+    
+    if (type) {
+      switch(type) {
+        case 'web':
+          setFormType('web');
+          break;
+        case 'video':
+          setFormType('video');
+          break;
+        case 'graphique':
+          setFormType('graphique');
+          break;
+        case 'marketing':
+          setFormType('marketing');
+          break;
+        default:
+          break;
+      }
+    }
+  }, [location]);
+  
+  // Fonction pour gérer la soumission des formulaires
+  const handleFormSubmit = (data: any) => {
+    console.log('Form submitted:', data);
+    // Ici vous pourriez ajouter la logique d'envoi du formulaire à votre backend
+  };
   
   // Effet d'étoiles filantes
   const ShootingStars = () => {
@@ -17,24 +51,17 @@ const Devis = () => {
         {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-0.5 h-0.5 bg-white rounded-full"
+            className="absolute w-1 h-1 bg-white rounded-full"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
-              boxShadow: '0 0 4px 2px rgba(255, 255, 255, 0.4)',
+              opacity: 0.7,
             }}
             animate={{
-              x: [0, Math.random() * 200 + 100],
-              y: [0, Math.random() * 200 + 100],
-              opacity: [1, 0],
-              scale: [1, 0],
+              y: [0, 10, 0],
+              opacity: [0.7, 0.3, 0.7],
             }}
-            transition={{
-              duration: Math.random() * 2 + 1,
-              repeat: Infinity,
-              repeatDelay: Math.random() * 5 + 2,
-              ease: 'easeOut',
-            }}
+            transition={{ duration: 2, repeat: Infinity }}
           />
         ))}
       </div>
@@ -197,39 +224,6 @@ const Devis = () => {
                   </motion.div>
                 ))}
               </div>
-              
-              {/* Étapes du processus */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                {[
-                  {
-                    icon: <FaRocket className="w-8 h-8" />,
-                    title: "Consultation",
-                    description: "Discussion approfondie sur vos besoins et objectifs"
-                  },
-                  {
-                    icon: <FaFileInvoiceDollar className="w-8 h-8" />,
-                    title: "Proposition",
-                    description: "Réception d'un devis détaillé et personnalisé"
-                  },
-                  {
-                    icon: <FaHandshake className="w-8 h-8" />,
-                    title: "Collaboration",
-                    description: "Lancement du projet et suivi régulier"
-                  }
-                ].map((step, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 * index + 0.6 }}
-                    className="p-6 rounded-xl backdrop-blur-sm border border-lavender-400/20 hover:border-lavender-400/40 transition-all duration-300"
-                  >
-                    <div className="text-amber-400 mb-4 flex justify-center">{step.icon}</div>
-                    <h3 className="text-xl font-bold mb-2 text-white">{step.title}</h3>
-                    <p className="text-lavender-100/80">{step.description}</p>
-                  </motion.div>
-                ))}
-              </div>
             </motion.div>
           )}
           
@@ -275,8 +269,58 @@ const Devis = () => {
                 Retour
               </button>
               
+              <div className="bg-gray-900/50 backdrop-blur-md p-8 rounded-2xl border border-lavender-400/20 shadow-xl">
+                <WebAppProjectForm onSubmit={handleFormSubmit} />
+              </div>
+            </motion.div>
+          )}
+          
+          {formType === 'graphique' && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-4xl mx-auto"
+            >
+              <button 
+                onClick={() => setFormType('intro')} 
+                className="mb-8 text-lavender-100 hover:text-white flex items-center gap-2 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Retour
+              </button>
+              
               <div className="bg-gray-900/50 backdrop-blur-md p-8 rounded-2xl border border-lavender-400/20 shadow-xl text-center">
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent animate-gradient-x">CRÉATION D'UN DEVIS SUR-MESURE : Site Web / Application</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-indigo-400 via-purple-300 to-indigo-500 bg-clip-text text-transparent animate-gradient-x">CRÉATION D'UN DEVIS SUR-MESURE : Design Graphique</h2>
+                <p className="text-xl text-lavender-100 mb-12">Formulaire en cours de développement. Veuillez nous contacter directement.</p>
+                <FloatingContactForm />
+              </div>
+            </motion.div>
+          )}
+          
+          {formType === 'marketing' && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-4xl mx-auto"
+            >
+              <button 
+                onClick={() => setFormType('intro')} 
+                className="mb-8 text-lavender-100 hover:text-white flex items-center gap-2 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Retour
+              </button>
+              
+              <div className="bg-gray-900/50 backdrop-blur-md p-8 rounded-2xl border border-lavender-400/20 shadow-xl text-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-teal-400 via-cyan-300 to-teal-500 bg-clip-text text-transparent animate-gradient-x">CRÉATION D'UN DEVIS SUR-MESURE : Marketing Digital</h2>
                 <p className="text-xl text-lavender-100 mb-12">Formulaire en cours de développement. Veuillez nous contacter directement.</p>
                 <FloatingContactForm />
               </div>

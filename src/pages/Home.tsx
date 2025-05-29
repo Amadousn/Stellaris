@@ -756,7 +756,7 @@ const Home: React.FC = () => {
               >
                 <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                   <Button 
-                    to="/contact" 
+                    to="/contact?type=contact" 
                     variant="primary" 
                     size="lg"
                     className="btn-primary shadow-lg hover:shadow-secondary/40"
@@ -767,7 +767,7 @@ const Home: React.FC = () => {
                 
                 <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                   <Button 
-                    to="/devis" 
+                    to="/devis?type=quote" 
                     variant="glass" 
                     size="lg"
                     className="btn-outline border-secondary/50 hover:border-secondary"
