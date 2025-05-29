@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTheme } from '../context/ThemeContext'
 
 interface Star {
@@ -12,9 +12,28 @@ interface Star {
   tail?: { x: number; y: number; length: number; };
 }
 
+// Fonction pour détecter si l'appareil est mobile
+const isMobileDevice = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+
 const StarryBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { theme } = useTheme()
+  const [isMobile, setIsMobile] = useState(false)
+  
+  // Vérifier si l'appareil est mobile au chargement du composant
+  useEffect(() => {
+    setIsMobile(isMobileDevice())
+    
+    // Mettre à jour lors du redimensionnement de la fenêtre
+    const handleResize = () => {
+      setIsMobile(isMobileDevice())
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -31,13 +50,13 @@ const StarryBackground: React.FC = () => {
     setCanvasSize()
     window.addEventListener('resize', setCanvasSize)
 
-    // Star properties
+    // Star properties - réduire le nombre d'éléments sur mobile
     const stars: Star[] = []
-    const numStars = 300
+    const numStars = isMobile ? 100 : 300
     const shootingStars: Star[] = []
-    const numShootingStars = 5
+    const numShootingStars = isMobile ? 1 : 5
     const nebulae: {x: number; y: number; radius: number; color: string; opacity: number}[] = []
-    const numNebulae = 3
+    const numNebulae = isMobile ? 1 : 3
     
     // Colors
     const starColors = [
@@ -57,15 +76,15 @@ const StarryBackground: React.FC = () => {
       'rgba(147, 112, 219, 0.05)', // Medium Purple
     ]
 
-    // Initialize stars
+    // Initialize stars - réduire la taille et l'effet de pulsation sur mobile
     for (let i = 0; i < numStars; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: 0.2 + Math.random() * 2,
-        speed: 0.05 + Math.random() * 0.2,
+        size: isMobile ? (0.2 + Math.random() * 1) : (0.2 + Math.random() * 2),
+        speed: isMobile ? (0.02 + Math.random() * 0.1) : (0.05 + Math.random() * 0.2),
         opacity: 0.2 + Math.random() * 0.8,
-        pulse: 0.005 + Math.random() * 0.01,
+        pulse: isMobile ? 0.001 : (0.005 + Math.random() * 0.01),
         color: starColors[Math.floor(Math.random() * starColors.length)]
       })
     }
@@ -111,7 +130,8 @@ const StarryBackground: React.FC = () => {
     let time = 0
     
     const animate = () => {
-      time += 0.005
+      // Réduire la vitesse d'animation sur mobile
+      time += isMobile ? 0.002 : 0.005
       // Utiliser un fond différent selon le thème
       const bgColor = theme === 'dark' 
         ? 'rgba(11, 16, 38, 0.2)' // Fond bleu foncé pour le mode sombre (nuit)
@@ -157,8 +177,8 @@ const StarryBackground: React.FC = () => {
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2)
         ctx.fill()
         
-        // Add glow effect to larger stars
-        if (star.size > 1.5) {
+        // Add glow effect to larger stars - désactiver l'effet de flou sur mobile
+        if (star.size > 1.5 && !isMobile) {
           ctx.shadowBlur = 15
           ctx.shadowColor = star.color
           ctx.beginPath()
