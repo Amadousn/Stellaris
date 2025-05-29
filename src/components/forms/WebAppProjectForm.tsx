@@ -202,10 +202,11 @@ const WebAppProjectForm: React.FC<WebAppProjectFormProps> = ({ onSubmit }) => {
               onChange={handleChange}
               className="form-input"
               required
+              style={{ backgroundColor: 'rgba(30, 35, 60, 0.9)' }}
             >
-              <option value="">Sélectionnez un type de projet</option>
+              <option value="" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Sélectionnez un type de projet</option>
               {projectTypes.map(type => (
-                <option key={type.value} value={type.value}>{type.label}</option>
+                <option key={type.value} value={type.value} style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>{type.label}</option>
               ))}
             </select>
             
@@ -506,14 +507,15 @@ const WebAppProjectForm: React.FC<WebAppProjectFormProps> = ({ onSubmit }) => {
                   value={formData.budget}
                   onChange={handleChange}
                   className="form-input"
+                  style={{ backgroundColor: 'rgba(30, 35, 60, 0.9)' }}
                 >
-                  <option value="">Sélectionnez une option</option>
-                  <option value="moins-1000">Moins de 1000€</option>
-                  <option value="1000-3000">Entre 1000€ et 3000€</option>
-                  <option value="3000-5000">Entre 3000€ et 5000€</option>
-                  <option value="5000-10000">Entre 5000€ et 10000€</option>
-                  <option value="plus-10000">Plus de 10000€</option>
-                  <option value="non-defini">Je n'ai pas encore défini de budget</option>
+                  <option value="" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Sélectionnez une option</option>
+                  <option value="moins-1000" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Moins de 1000€</option>
+                  <option value="1000-3000" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Entre 1000€ et 3000€</option>
+                  <option value="3000-5000" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Entre 3000€ et 5000€</option>
+                  <option value="5000-10000" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Entre 5000€ et 10000€</option>
+                  <option value="plus-10000" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Plus de 10000€</option>
+                  <option value="non-defini" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Je n'ai pas encore défini de budget</option>
                 </select>
               </div>
 

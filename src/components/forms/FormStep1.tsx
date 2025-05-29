@@ -118,10 +118,11 @@ const FormStep1: React.FC = () => {
           value={formData.requestType}
           onChange={handleChange}
           className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
+          style={{ backgroundColor: 'rgba(30, 35, 60, 0.9)' }}
         >
-          <option value="">Sélectionnez le type de demande</option>
+          <option value="" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Sélectionnez le type de demande</option>
           {requestTypes.map(type => (
-            <option key={type.value} value={type.value}>{type.label}</option>
+            <option key={type.value} value={type.value} style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>{type.label}</option>
           ))}
         </select>
       </div>
@@ -138,10 +139,11 @@ const FormStep1: React.FC = () => {
           value={formData.service}
           onChange={handleChange}
           className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
+          style={{ backgroundColor: 'rgba(30, 35, 60, 0.9)' }}
         >
-          <option value="">Sélectionnez un service</option>
+          <option value="" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Sélectionnez un service</option>
           {serviceOptions.map(service => (
-            <option key={service.value} value={service.value}>{service.label}</option>
+            <option key={service.value} value={service.value} style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>{service.label}</option>
           ))}
         </select>
       </div>

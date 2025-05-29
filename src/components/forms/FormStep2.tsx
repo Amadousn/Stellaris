@@ -95,10 +95,11 @@ const FormStep2: React.FC = () => {
               value={formData.budget}
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
+              style={{ backgroundColor: 'rgba(30, 35, 60, 0.9)' }}
             >
-              <option value="">Sélectionnez une fourchette</option>
+              <option value="" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Sélectionnez une fourchette</option>
               {budgetRanges.map(range => (
-                <option key={range.value} value={range.value}>{range.label}</option>
+                <option key={range.value} value={range.value} style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>{range.label}</option>
               ))}
             </select>
           </div>
@@ -114,10 +115,11 @@ const FormStep2: React.FC = () => {
               value={formData.timeline}
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
+              style={{ backgroundColor: 'rgba(30, 35, 60, 0.9)' }}
             >
-              <option value="">Sélectionnez un délai</option>
+              <option value="" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Sélectionnez un délai</option>
               {timelineOptions.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
+                <option key={option.value} value={option.value} style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>{option.label}</option>
               ))}
             </select>
           </div>
@@ -133,16 +135,17 @@ const FormStep2: React.FC = () => {
               value={formData.projectType}
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
+              style={{ backgroundColor: 'rgba(30, 35, 60, 0.9)' }}
             >
-              <option value="">Sélectionnez un type de projet</option>
+              <option value="" style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>Sélectionnez un type de projet</option>
               {formData.service === 'web' && webProjectTypes.map(type => (
-                <option key={type.value} value={type.value}>{type.label}</option>
+                <option key={type.value} value={type.value} style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>{type.label}</option>
               ))}
               {formData.service === 'design' && designProjectTypes.map(type => (
-                <option key={type.value} value={type.value}>{type.label}</option>
+                <option key={type.value} value={type.value} style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>{type.label}</option>
               ))}
               {formData.service === 'seo' && seoProjectTypes.map(type => (
-                <option key={type.value} value={type.value}>{type.label}</option>
+                <option key={type.value} value={type.value} style={{ backgroundColor: 'rgba(30, 35, 60, 0.95)', color: 'white', padding: '10px' }}>{type.label}</option>
               ))}
             </select>
           </div>
