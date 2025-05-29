@@ -155,6 +155,25 @@
   transition: all 0.3s ease;
 }
 
+/* Styles pour les options des menus déroulants */
+select.form-input {
+  appearance: menulist;
+  background-image: linear-gradient(45deg, transparent 50%, rgba(150, 150, 255, 0.6) 50%),
+                    linear-gradient(135deg, rgba(150, 150, 255, 0.6) 50%, transparent 50%);
+  background-position: calc(100% - 20px) center, calc(100% - 15px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2.5rem;
+}
+
+/* Améliorer la visibilité des options dans les menus déroulants */
+select.form-input option {
+  background-color: rgba(30, 35, 60, 0.95);
+  color: #ffffff;
+  padding: 10px;
+  font-size: 1rem;
+}
+
 .form-input:focus {
   outline: none;
   border-color: rgba(180, 180, 255, 0.5);
