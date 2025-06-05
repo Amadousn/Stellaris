@@ -4,23 +4,10 @@ import Button from './ui/Button'
 import Logo from './Logo'
 import '../styles/ia-enhancements.css'
 import ThemeToggle from './ui/ThemeToggle'
-import { FaSearch } from 'react-icons/fa'
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')  
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      // Dans une application réelle, cela redirigerait vers une page de résultats de recherche
-      // Pour l'instant, redirigeons vers la page Services qui est complète
-      setIsSearchOpen(false)
-      setSearchQuery('')
-      window.location.href = '/services'
-    }
-  }
   const location = useLocation()
   // Le thème est géré via le composant ThemeToggle
 
@@ -98,21 +85,11 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Actions (Search, Theme, Contact) */}
-          <div className="flex-shrink-0 flex items-center space-x-4">
-            {/* Search Button */}
-            <button
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 rounded-md hover:bg-blue-600/20 transition-colors duration-300"
-              aria-label="Rechercher"
-            >
-              <FaSearch className="text-gray-300 hover:text-blue-500 transition-colors duration-300" />
-            </button>
+          {/* Actions (Theme, Contact) */}
+          <div className="flex items-center space-x-4">
             
-            {/* Theme Toggle */}
             <ThemeToggle className="hidden md:block" />
             
-            {/* Contact Button */}
             <div className="hidden md:block">
               <Button
                 to="/contact"
@@ -153,30 +130,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Search Bar */}
-        <div
-          className={`transition-all duration-300 overflow-hidden ${
-            isSearchOpen ? 'max-h-20 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
-          }`}
-        >
-          <form onSubmit={handleSearch} className="relative">
-            <input
-              type="text"
-              placeholder="Rechercher..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white/5 border border-blue-600/20 rounded-md px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600/50 font-montserrat text-sm"
-            />
-            <button
-              type="submit"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-500 transition-colors duration-300"
-              aria-label="Lancer la recherche"
-            >
-              <FaSearch />
-            </button>
-          </form>
-        </div>
-        
         {/* Mobile Navigation */}
         <div
           className={`md:hidden transition-all duration-300 overflow-hidden ${
@@ -207,10 +160,9 @@ const Navbar: React.FC = () => {
               <Button
                 to="/contact"
                 variant="primary"
-                size="sm"
-                className="relative font-montserrat bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 transition-colors duration-300"
+                className="font-montserrat bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-3 transition-colors duration-300 w-full"
               >
-                <span className="font-medium">Contact</span>
+                Contactez-nous
               </Button>
             </div>
           </div>
