@@ -9,7 +9,7 @@ const Logo = () => {
   const textControls = useAnimation();
   const starsControls = useAnimation();
   
-  // Séquence d'animation au chargement
+  // Séquence d'animation au chargement - Version professionnelle simplifiée
   useEffect(() => {
     const animateEntrance = async () => {
       // Préparation des étoiles en arrière-plan (invisibles)
@@ -19,98 +19,49 @@ const Logo = () => {
         transition: { duration: 0.1 }
       });
       
-      // Étape 1: La soucoupe commence hors écran
+      // Animation simplifiée de la soucoupe
       await saucerControls.start({
-        x: -150,
+        x: -30,
         y: 0,
-        rotate: 0,
-        scale: 0.7,
         opacity: 0,
+        scale: 0.8,
         transition: { duration: 0.1 }
       });
       
-      // Apparition de la soucoupe
+      // Apparition de la soucoupe avec un mouvement subtil
       await saucerControls.start({
         opacity: 1,
-        transition: { duration: 0.2 }
-      });
-      
-      // Étape 2: Entrée rapide vers le centre de l'écran
-      await saucerControls.start({
         x: 0,
-        y: 0,
-        rotate: 5,
-        scale: 0.8,
         transition: { duration: 0.4, ease: "easeOut" }
       });
       
-      // Étape 3: Effet de zoom au centre (s'approche de nous)
+      // Légère animation de stabilisation
       await saucerControls.start({
-        scale: 1.3,
-        y: 10,
-        rotate: -5,
-        transition: { duration: 0.3, ease: "easeInOut" }
-      });
-      
-      // Étape 4: Petit looping rapide et élégant (environ 2 secondes)
-      await saucerControls.start({
-        x: [0, 50, 0, -50, 0],
-        y: [10, 30, -30, 0, 10],
-        rotate: [-5, 90, 180, 270, 360],
-        scale: [1.3, 1.2, 1.1, 1.2, 1.3],
-        transition: { duration: 2, ease: "easeInOut" }
-      });
-      
-      // Étape 5: Léger déplacement vers la droite
-      await saucerControls.start({
-        x: 50,
-        y: 0,
-        rotate: -10,
-        scale: 1.2,
-        transition: { duration: 0.3, ease: "easeInOut" }
-      });
-      
-      // Étape 5: Freinage avec fumée
-      smokeControls.start({
-        opacity: [0, 0.8, 0],
-        scale: [0.5, 1.5, 2],
-        x: [0, -20, -40],
-        transition: { duration: 0.8, ease: "easeOut" }
-      });
-      
-      // Atterrissage final
-      await saucerControls.start({
-        x: 0,
-        y: 0,
-        rotate: 0,
-        scale: 1,
+        scale: 0.9,
         transition: { duration: 0.3, type: "spring", stiffness: 300, damping: 15 }
       });
       
-      // Étape 7: Apparition des étoiles scintillantes
+      // Apparition discrète des étoiles
       starsControls.start({
-        opacity: [0, 0.8, 0.4, 0.9, 0.5],
-        scale: [0, 1, 0.8, 1.2, 1],
-        transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+        opacity: [0, 0.4, 0.2, 0.5, 0.3],
+        scale: [0, 1, 0.9, 1.1, 1],
+        transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
       });
       
-      // Étape 8: Apparition du texte STELLARIS lettre par lettre
+      // Apparition du texte STELLARIS avec un effet plus sobre
       await textControls.start({
         opacity: 1,
-        x: 0,
         transition: { 
-          duration: 0.8,
-          ease: "easeOut",
-          staggerChildren: 0.08,
-          delayChildren: 0.1
+          duration: 0.6,
+          ease: "easeOut"
         }
       });
       
-      // Étape 9: Animation continue subtile de la soucoupe
+      // Animation continue très subtile de la soucoupe
       saucerControls.start({
-        y: [-2, 2, -2],
-        rotate: [-2, 2, -2],
-        transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+        y: [-1, 1, -1],
+        rotate: [-1, 1, -1],
+        transition: { duration: 5, repeat: Infinity, ease: "easeInOut" }
       });
     };
     
@@ -121,7 +72,7 @@ const Logo = () => {
   return (
     <Link to="/" className="group flex items-center">
       <div className="flex items-center">
-        <div className="relative w-16 h-10">
+        <div className="relative w-12 h-8">
           {/* Effet de fumée lors du freinage */}
           <motion.div
             className="absolute left-0 top-0 w-12 h-8 z-0"
@@ -251,52 +202,47 @@ const Logo = () => {
             ))}
           </div>
           
-          {/* Texte STELLARIS avec effet métallique premium et animation d'entrée */}
+          {/* Texte STELLARIS avec effet métallique professionnel et sobre */}
           <motion.div
-            className="text-3xl font-serif uppercase tracking-wider"
-            style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}
+            className="text-2xl uppercase tracking-wider"
+            style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif", fontWeight: 600, letterSpacing: '0.05em' }}
             initial={{ opacity: 0 }}
             animate={textControls}
           >
             <div className="relative">
-              {/* Effet d'ombre pour effet 3D */}
+              {/* Effet d'ombre subtil */}
               <span 
-                className="absolute inset-0 blur-[1px] opacity-70" 
+                className="absolute inset-0 blur-[0.5px] opacity-50" 
                 style={{ 
-                  color: '#312E81', // Indigo plus profond pour l'ombre
-                  transform: 'translate(1.5px, 1.5px)',
+                  color: '#1E293B', // Bleu slate plus professionnel pour l'ombre
+                  transform: 'translate(1px, 1px)',
                 }}
               >
                 STELLARIS
               </span>
             
-              {/* Effet premium sophistiqué avec apparition lettre par lettre et couleurs vibrantes */}
+              {/* Effet métallique subtil et professionnel */}
               <div className="flex">
-                {"STELLARIS".split('').map((letter, index) => (
-                  <motion.span 
-                    key={`letter-${index}`}
-                    className="text-transparent bg-clip-text relative" 
-                    style={{ 
-                      backgroundImage: 'linear-gradient(135deg, #E2E8F0, #CBD5E1, #94A3B8, #6366F1, #4F46E5, #94A3B8, #CBD5E1, #E2E8F0)',
-                      backgroundSize: '200% 100%',
-                      WebkitBackgroundClip: 'text',
-                      textShadow: '0 0 15px rgba(99, 102, 241, 0.4), 0 0 5px rgba(148, 163, 184, 0.3)'
-                    }}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ 
-                      opacity: 1, 
-                      y: 0,
-                      backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'] 
-                    }}
-                    transition={{
-                      opacity: { duration: 0.3, delay: 0.1 + (index * 0.08) },
-                      y: { duration: 0.5, delay: 0.1 + (index * 0.08), type: "spring" },
-                      backgroundPosition: { duration: 6, repeat: Infinity, ease: "linear" }
-                    }}
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
+                <motion.span 
+                  className="text-transparent bg-clip-text relative" 
+                  style={{ 
+                    backgroundImage: 'linear-gradient(135deg, #F8FAFC, #E2E8F0, #CBD5E1, #94A3B8, #CBD5E1, #E2E8F0, #F8FAFC)',
+                    backgroundSize: '200% 100%',
+                    WebkitBackgroundClip: 'text',
+                    textShadow: '0 0 5px rgba(148, 163, 184, 0.2)'
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: 1,
+                    backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'] 
+                  }}
+                  transition={{
+                    opacity: { duration: 0.6 },
+                    backgroundPosition: { duration: 8, repeat: Infinity, ease: "linear" }
+                  }}
+                >
+                  STELLARIS
+                </motion.span>
               </div>
             </div>
           </motion.div>

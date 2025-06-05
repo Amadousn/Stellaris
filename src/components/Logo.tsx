@@ -52,99 +52,79 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', animate = false, className
   useEffect(() => {
     if (showSaucer) {
       const animateEntrance = async () => {
-        // Préparation des étoiles en arrière-plan (invisibles)
+        // Animation spectaculaire mais professionnelle
+        
+        // Préparation initiale des étoiles
         starsControls.start({
           opacity: 0,
           scale: 0,
           transition: { duration: 0.1 }
         });
         
-        // Étape 1: La soucoupe commence hors écran
+        // Position initiale de la soucoupe (hors écran)
         await saucerControls.start({
           x: -150,
-          y: 0,
-          rotate: 0,
-          scale: 0.7,
+          y: 20,
           opacity: 0,
+          scale: 0.5,
+          rotate: -15,
           transition: { duration: 0.1 }
         });
         
-        // Apparition de la soucoupe
+        // Apparition de la fumée
+        smokeControls.start({
+          opacity: [0, 0.7, 0],
+          x: [-10, -30],
+          scale: [0.5, 1.5],
+          transition: { duration: 1.2, ease: "easeOut" }
+        });
+        
+        // Entrée dynamique de la soucoupe
         await saucerControls.start({
           opacity: 1,
-          transition: { duration: 0.2 }
-        });
-        
-        // Étape 2: Entrée rapide vers le centre de l'écran
-        await saucerControls.start({
           x: 0,
           y: 0,
-          rotate: 5,
-          scale: 0.8,
-          transition: { duration: 0.4, ease: "easeOut" }
+          scale: 1,
+          rotate: 0,
+          transition: { 
+            duration: 0.8, 
+            ease: "easeOut",
+            type: "spring",
+            stiffness: 100,
+            damping: 10
+          }
         });
         
-        // Étape 3: Effet de zoom au centre (s'approche de nous)
-        await saucerControls.start({
-          scale: 1.3,
-          y: 10,
-          rotate: -5,
-          transition: { duration: 0.3, ease: "easeInOut" }
-        });
-        
-        // Étape 4: Petit looping rapide et élégant
+        // Étape 3: Petit looping rapide et élégant
         await saucerControls.start({
           x: [0, 30, 0, -30, 0],
-          y: [10, 20, -20, 0, 10],
-          rotate: [-5, 90, 180, 270, 360],
-          scale: [1.3, 1.2, 1.1, 1.2, 1.3],
-          transition: { duration: 1.5, ease: "easeInOut" }
+          y: [0, 15, -15, 0],
+          rotate: [-5, 10, -10, 5, 0],
+          scale: [1, 1.1, 1],
+          transition: { duration: 1.2, ease: "easeInOut" }
         });
         
-        // Étape 5: Léger déplacement vers la droite
-        await saucerControls.start({
-          x: 30,
-          y: 0,
-          rotate: -10,
-          scale: 1.2,
-          transition: { duration: 0.3, ease: "easeInOut" }
-        });
-        
-        // Étape 5: Freinage avec fumée
-        smokeControls.start({
-          opacity: [0, 0.8, 0],
-          scale: [0.5, 1.5, 2],
-          x: [0, -20, -40],
-          transition: { duration: 0.8, ease: "easeOut" }
-        });
-        
-        // Atterrissage final
-        await saucerControls.start({
-          x: 0,
-          y: 0,
-          rotate: 0,
-          scale: 1,
-          transition: { duration: 0.3, type: "spring", stiffness: 300, damping: 15 }
-        });
-        
-        // Étape 7: Apparition des étoiles scintillantes
-        starsControls.start({
-          opacity: [0, 0.8, 0.4, 0.9, 0.5],
-          scale: [0, 1, 0.8, 1.2, 1],
-          transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
-        });
-        
-        // Étape 8: Apparition du texte STELLARIS
+        // Apparition du texte STELLARIS avec un effet de brillance
         await textControls.start({
           opacity: 1,
-          x: 0,
+          scale: [0.95, 1.05, 1],
           transition: { 
-            duration: 0.8,
+            duration: 0.6,
             ease: "easeOut"
           }
         });
         
-        // Étape 9: Animation continue subtile de la soucoupe
+        // Apparition des étoiles
+        starsControls.start({
+          opacity: [0, 0.8, 0.5],
+          scale: [0, 1.2, 1],
+          transition: { 
+            duration: 1.5,
+            ease: "easeOut"
+          }
+        });
+        
+        // Animation continue plus dynamique de la soucoupe
         saucerControls.start({
           y: [-2, 2, -2],
           rotate: [-2, 2, -2],
@@ -213,40 +193,71 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', animate = false, className
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white to-transparent opacity-70" />
             </div>
             
-            {/* Dôme supérieur */}
-            <div className="absolute w-1/2 h-1/3 left-1/4 top-0 bg-gradient-to-r from-indigo-400 via-indigo-300 to-indigo-400 rounded-full overflow-hidden z-20">
-              {/* Effet de reflet sur le dôme */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-transparent opacity-50" />
+            {/* Dôme supérieur avec effet de verre/cristal */}
+            <div 
+              className="absolute w-1/2 h-1/3 left-1/4 top-0 rounded-full overflow-hidden z-20"
+              style={{
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.8) 0%, rgba(139, 92, 246, 0.9) 50%, rgba(79, 70, 229, 0.8) 100%)',
+                boxShadow: 'inset 0 2px 4px rgba(255, 255, 255, 0.5), 0 0 10px rgba(139, 92, 246, 0.5)'
+              }}
+            >
+              {/* Effet de brillance sur le dôme */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-transparent"
+                animate={{ opacity: [0.3, 0.7, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
             </div>
             
-            {/* Hublots */}
+            {/* Hublots lumineux */}
             {[...Array(3)].map((_, i) => (
-              <div 
+              <motion.div 
                 key={`window-${i}`}
-                className="absolute w-1.5 h-1.5 bg-cyan-300 rounded-full z-30"
+                className="absolute rounded-full z-30"
                 style={{ 
+                  width: size === 'small' ? '3px' : size === 'medium' ? '4px' : '5px',
+                  height: size === 'small' ? '3px' : size === 'medium' ? '4px' : '5px',
                   left: `${30 + i * 20}%`,
                   top: '40%',
-                  boxShadow: '0 0 5px rgba(103, 232, 249, 0.8)'
+                  background: '#38bdf8',
+                  boxShadow: '0 0 8px #38bdf8, 0 0 12px rgba(56, 189, 248, 0.6)'
                 }}
+                animate={{ 
+                  opacity: [0.7, 1, 0.7],
+                  boxShadow: [
+                    '0 0 5px #38bdf8, 0 0 10px rgba(56, 189, 248, 0.6)',
+                    '0 0 10px #38bdf8, 0 0 15px rgba(56, 189, 248, 0.8)',
+                    '0 0 5px #38bdf8, 0 0 10px rgba(56, 189, 248, 0.6)'
+                  ]
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.7, ease: "easeInOut" }}
               />
             ))}
             
-            {/* Rayons tracteurs/propulseurs */}
+            {/* Rayons tracteurs/propulseurs améliorés */}
             <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              {[...Array(3)].map((_, i) => {
-                const width = 1 + i * 1;
+              {[...Array(5)].map((_, i) => {
+                const width = 1 + i * 0.7;
                 return (
                   <motion.div
                     key={`ray-${i}`}
-                    className="absolute bottom-0 bg-gradient-to-b from-indigo-400/80 to-transparent"
+                    className="absolute bottom-0"
                     style={{ 
-                      height: `${2 + i}px`,
+                      background: 'linear-gradient(to bottom, rgba(139, 92, 246, 0.8), rgba(59, 130, 246, 0.4), transparent)',
                       width: `${width}px`,
                       left: `${-width/2}px`,
+                      borderRadius: '4px'
                     }}
-                    animate={{ height: [`${2 + i}px`, `${4 + i}px`, `${2 + i}px`], opacity: [0.3, 0.7, 0.3] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.2, ease: "easeInOut" }}
+                    animate={{ 
+                      height: [`${3 + i}px`, `${6 + i * 1.5}px`, `${3 + i}px`], 
+                      opacity: [0.3, 0.8, 0.3],
+                      boxShadow: [
+                        '0 0 2px rgba(139, 92, 246, 0.3)',
+                        '0 0 4px rgba(139, 92, 246, 0.5)',
+                        '0 0 2px rgba(139, 92, 246, 0.3)'
+                      ]
+                    }}
+                    transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1, ease: "easeInOut" }}
                   />
                 );
               })}

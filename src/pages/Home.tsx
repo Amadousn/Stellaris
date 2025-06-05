@@ -6,57 +6,6 @@ import { Link } from 'react-router-dom'
 import Timeline from '../components/Timeline'
 import '../styles/ia-enhancements.css'
 
-interface ServiceCardProps {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  color: string;
-  delay: number;
-}
-
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, color, delay }) => {
-  return (
-    <motion.div
-      className="relative group overflow-hidden"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: delay || 0 }}
-      whileHover={{ y: -5, transition: { duration: 0.2 } }}
-    >
-      {/* Fond avec effet glassmorphism */}
-      <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm rounded-xl" />
-      
-      {/* Contenu de la carte */}
-      <div className="relative p-6 rounded-xl border border-secondary/20 hover:border-secondary/40 transition-all duration-300 overflow-hidden">
-        {/* Icône avec effet de lueur */}
-        <motion.div 
-          className={`text-4xl mb-4 ${color}`}
-          whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-        >
-          {icon}
-        </motion.div>
-        
-        {/* Titre avec dégradé */}
-        <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-          {title}
-        </h3>
-        
-        {/* Description */}
-        <p className="text-gray-300 group-hover:text-white transition-colors duration-300">
-          {description}
-        </p>
-        
-        {/* Bordure lumineuse au survol */}
-        <motion.div 
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-secondary to-accent opacity-0 group-hover:opacity-100"
-          transition={{ duration: 0.3 }}
-        />
-      </div>
-    </motion.div>
-  )
-}
-
 const Home: React.FC = () => {
   useEffect(() => {
     // Ajout de la classe pour l'animation du titre
@@ -64,6 +13,22 @@ const Home: React.FC = () => {
     if (title) {
       title.classList.add('stl-slide-up')
     }
+    
+    // Effet de parallaxe sur le défilement
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const parallaxElements = document.querySelectorAll('.parallax');
+      
+      parallaxElements.forEach((element, index) => {
+        const speed = index % 2 === 0 ? 0.2 : -0.2;
+        const htmlElement = element as HTMLElement;
+        htmlElement.style.transform = `translateY(${scrollY * speed}px)`;
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [])
 
   return (
@@ -386,25 +351,91 @@ const Home: React.FC = () => {
         </div>
       </div>
       
-      {/* Particules flottantes simplifiées */}
+      {/* Particules flottantes améliorées */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
+        {/* Particules statiques */}
+        {[...Array(15)].map((_, i) => (
           <div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-secondary-light/30"
+            key={`static-particle-${i}`}
+            className="absolute rounded-full bg-secondary-light/30"
             style={{
-              top: `${20 * i}%`,
-              left: `${15 * i}%`,
-              width: "2px",
-              height: "2px"
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: `${1 + Math.random() * 2}px`,
+              height: `${1 + Math.random() * 2}px`
             }}
           />
         ))}
+        
+        {/* Particules flottantes animées */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`floating-particle-${i}`}
+            className="absolute rounded-full bg-secondary-light/40"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: `${2 + Math.random() * 3}px`,
+              height: `${2 + Math.random() * 3}px`
+            }}
+            animate={{
+              y: ['-10px', '10px', '-10px'],
+              x: ['-10px', '10px', '-10px'],
+              opacity: [0.2, 0.5, 0.2]
+            }}
+            transition={{
+              duration: 5 + Math.random() * 5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+                {/* Formes géométriques subtiles */}
+        <motion.div
+          className="absolute border border-blue-400/10 rounded-full"
+          style={{
+            top: '20%',
+            right: '10%',
+            width: '150px',
+            height: '150px'
+          }}
+          animate={{
+            rotate: [0, 360],
+            scale: [0.9, 1.1, 0.9]
+          }}
+          transition={{
+            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+            scale: { duration: 8, repeat: Infinity, ease: "easeInOut" }
+          }}
+        />
+        
+        <motion.div
+          className="absolute border border-purple-400/10"
+          style={{
+            bottom: '15%',
+            left: '5%',
+            width: '100px',
+            height: '100px',
+            transform: 'rotate(45deg)'
+          }}
+          animate={{
+            rotate: [45, 225, 45],
+            scale: [0.8, 1, 0.8]
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
       </div>
 
       <main className="relative z-10">
         {/* Hero Section - Version premium et sophistiquée */}
         <section className="min-h-screen flex flex-col items-center justify-center px-4 text-center relative overflow-hidden">
+          {/* Éléments avec effet de parallaxe */}
+          <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-secondary/5 blur-3xl parallax"></div>
+          <div className="absolute top-40 -right-20 w-60 h-60 rounded-full bg-accent/5 blur-3xl parallax"></div>
           {/* Effet de lumière subtil */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-b from-white/5 to-transparent opacity-20 blur-3xl" />
           
@@ -524,7 +555,7 @@ const Home: React.FC = () => {
         <Timeline />
 
         {/* Services Section - Version premium et sophistiquée */}
-        <section className="py-28 px-4 relative overflow-hidden">
+        <section className="py-28 px-4 relative overflow-hidden parallax">
           {/* Effet de lumière subtil */}
           <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-gradient-to-t from-white/5 to-transparent opacity-20 blur-3xl" />
           
@@ -558,7 +589,8 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0 }}
-                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-white/10 transition-all duration-300"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-secondary/20 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/5"
               >
                 <div className="p-8 relative">
                   {/* Icône avec effet de lueur */}
@@ -586,7 +618,8 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-white/10 transition-all duration-300"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-secondary/20 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/5"
               >
                 <div className="p-8 relative">
                   <div className="text-4xl mb-6 text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300">
@@ -607,7 +640,8 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-white/10 transition-all duration-300"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-secondary/20 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/5"
               >
                 <div className="p-8 relative">
                   <div className="text-4xl mb-6 text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300">
@@ -628,7 +662,8 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-white/10 transition-all duration-300"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-secondary/20 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/5"
               >
                 <div className="p-8 relative">
                   <div className="text-4xl mb-6 text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300">
@@ -649,7 +684,8 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-white/10 transition-all duration-300"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-secondary/20 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/5"
               >
                 <div className="p-8 relative">
                   <div className="text-4xl mb-6 text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300">
@@ -672,7 +708,8 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.6 }}
-                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-white/10 transition-all duration-300"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative group overflow-hidden rounded-lg border border-white/5 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-secondary/20 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/5"
               >
                 <div className="p-8 relative">
                   <div className="text-4xl mb-6 text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300">
@@ -691,8 +728,114 @@ const Home: React.FC = () => {
           </div>
         </section>
 
+        {/* Section Témoignages - En construction */}
+        <section className="py-24 px-4 relative overflow-hidden parallax">
+          <div className="container mx-auto px-4 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <motion.span 
+                className="text-gray-400 text-sm tracking-[0.3em] uppercase block mb-3"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+              >
+                Ils nous font confiance
+              </motion.span>
+              <h2 className="text-4xl font-light mb-6 text-white tracking-wide">Té<span className="font-normal">moignages</span></h2>
+              <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto mb-8"></div>
+            </motion.div>
+
+            {/* Conteneur de témoignages "en construction" */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="glass-dark rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto border border-secondary/20 relative overflow-hidden"
+            >
+              {/* Effet de particules */}
+              {[...Array(6)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full bg-secondary/20"
+                  style={{
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                    width: "4px",
+                    height: "4px"
+                  }}
+                  animate={{
+                    y: [-10, 10, -10],
+                    x: [-10, 10, -10],
+                    opacity: [0.3, 0.7, 0.3]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 5 + Math.random() * 5,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+              
+              {/* Icône en construction */}
+              <motion.div 
+                className="text-6xl mb-6 mx-auto text-secondary/80"
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </motion.div>
+              
+              <motion.h3 
+                className="text-2xl font-medium mb-4 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+              >
+                Témoignages en cours de collecte
+              </motion.h3>
+              
+              <motion.p 
+                className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
+                Nous recueillons actuellement les témoignages de nos clients satisfaits. Revenez bientôt pour découvrir leurs expériences avec nos services.
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.6 }}
+                className="flex justify-center"
+              >
+                <Link
+                  to="/contact"
+                  className="relative overflow-hidden px-6 py-2.5 rounded-md bg-transparent text-gray-200 border border-indigo-400/20 hover:border-indigo-400/40 hover:text-white transition-all duration-300 group flex items-center"
+                >
+                  <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-indigo-900/10 to-purple-900/10"></span>
+                  <span className="relative z-10 font-medium">Partager votre expérience</span>
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* CTA Section */}
-        <section className="py-20 px-4">
+        <section className="py-20 px-4 parallax">
           <div className="container mx-auto">
             <motion.div 
               className="glass-dark rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto border border-secondary/20 relative overflow-hidden"

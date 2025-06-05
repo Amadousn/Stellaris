@@ -56,17 +56,17 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div
-        className={`absolute inset-0 transition-all duration-500 ${
+        className={`absolute inset-0 transition-all duration-300 ${
           isScrolled ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <div className="absolute inset-0 backdrop-blur-md bg-gradient-to-b from-primary/70 to-primary/30" />
-        {/* Bordure lumineuse subtile avec dégradé coloré */}
-        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500/30 to-purple-500/30 to-transparent" />
+        <div className="absolute inset-0 backdrop-blur-sm bg-primary/90" />
+        {/* Bordure simple et professionnelle */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-blue-600/20" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 relative">
-        <div className={`flex items-center justify-between ${isScrolled ? 'h-24' : 'h-36'} transition-all duration-500 px-10 border-b border-blue-500/20`}>
+        <div className={`flex items-center justify-between ${isScrolled ? 'h-16' : 'h-24'} transition-all duration-300 px-6 border-b border-blue-600/10`}>
           {/* Logo */}
           <div className="flex-shrink-0 scale-125">
             <Logo />
@@ -79,20 +79,20 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative text-base font-medium tracking-wide transition-all duration-300 group ${
+                  className={`relative text-sm uppercase font-montserrat font-medium tracking-wide transition-all duration-300 group ${
                     isActive(item.path)
                       ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
+                      : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   {item.label}
-                  {/* Indicateur de page active - Lueur subtile */}
+                  {/* Indicateur de page active - Ligne simple et professionnelle */}
                   {isActive(item.path) && (
-                    <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-gradient-to-r from-indigo-400/60 to-purple-400/60" />
+                    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-blue-600" />
                   )}
                   
                   {/* Effet de bordure au survol */}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gradient-to-r from-indigo-400/60 to-purple-400/60 transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600/70 transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </div>
@@ -103,10 +103,10 @@ const Navbar: React.FC = () => {
             {/* Search Button */}
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 rounded-full hover:bg-white/10 transition-colors duration-300"
+              className="p-2 rounded-md hover:bg-blue-600/20 transition-colors duration-300"
               aria-label="Rechercher"
             >
-              <FaSearch className="text-gray-300 hover:text-white transition-colors duration-300" />
+              <FaSearch className="text-gray-300 hover:text-blue-500 transition-colors duration-300" />
             </button>
             
             {/* Theme Toggle */}
@@ -114,11 +114,13 @@ const Navbar: React.FC = () => {
             
             {/* Contact Button */}
             <div className="hidden md:block">
-              <Button to="/contact" variant="primary" size="sm" className="relative overflow-hidden group hover:scale-105 transition-transform duration-300 border border-indigo-400/20 bg-gradient-to-r from-indigo-900/70 to-purple-900/70">
-                <span className="relative z-10 bg-gradient-to-r from-white via-indigo-100 to-white bg-clip-text text-transparent font-medium">Contact</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-                {/* Effet de reflet glissant */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-gradient-to-r from-transparent via-white to-transparent skew-x-12 -translate-x-full z-20 animate-shimmer"></div>
+              <Button
+                to="/contact"
+                variant="primary"
+                size="sm"
+                className="relative font-montserrat bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 transition-colors duration-300"
+              >
+                <span className="font-medium">Contact</span>
               </Button>
             </div>
           </div>
@@ -163,11 +165,11 @@ const Navbar: React.FC = () => {
               placeholder="Rechercher..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white/10 border border-indigo-400/20 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+              className="w-full bg-white/5 border border-blue-600/20 rounded-md px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600/50 font-montserrat text-sm"
             />
             <button
               type="submit"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-300"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-500 transition-colors duration-300"
               aria-label="Lancer la recherche"
             >
               <FaSearch />
@@ -186,40 +188,29 @@ const Navbar: React.FC = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 relative overflow-hidden group ${
+                className={`block px-4 py-2.5 text-sm uppercase font-montserrat font-medium transition-all duration-300 relative ${
                   isActive(item.path)
-                    ? 'text-white bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border-l-2 border-indigo-400/50'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent hover:border-indigo-400/20'
+                    ? 'text-white border-l-2 border-blue-600'
+                    : 'text-gray-300 hover:text-white border-l-2 border-transparent hover:border-blue-600/50'
                 }`}
               >
-                {/* Effet de brillance au survol */}
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
-                
-                <span className="relative z-10">{item.label}</span>
-                <span
-                  className={`absolute inset-0 bg-gradient-to-r from-indigo-900/10 to-purple-900/10 transform transition-transform duration-300 ${
-                    isActive(item.path) ? 'translate-x-0' : '-translate-x-full'
-                  }`}
-                />
+                <span className="relative">{item.label}</span>
               </Link>
             ))}
             <div className="pt-4 px-2 space-y-4">
               {/* Theme Toggle in Mobile Menu */}
-              <div className="flex items-center justify-between px-4 py-2 rounded-lg bg-white/5">
-                <span className="text-sm text-gray-300">Changer de thème</span>
+              <div className="flex items-center justify-between px-4 py-2 border-b border-blue-600/10">
+                <span className="text-sm font-montserrat uppercase text-gray-300">Thème</span>
                 <ThemeToggle />
               </div>
               
-              <Button 
-                to="/contact" 
-                variant="primary" 
-                size="sm" 
-                className="w-full bg-gradient-to-r from-indigo-900/70 to-purple-900/70 border border-indigo-400/20 relative overflow-hidden group"
+              <Button
+                to="/contact"
+                variant="primary"
+                size="sm"
+                className="relative font-montserrat bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 transition-colors duration-300"
               >
-                {/* Effet de brillance */}
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
-                
-                <span className="relative z-10 bg-gradient-to-r from-white via-indigo-100 to-white bg-clip-text text-transparent font-medium">Contact</span>
+                <span className="font-medium">Contact</span>
               </Button>
             </div>
           </div>
