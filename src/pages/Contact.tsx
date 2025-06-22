@@ -106,7 +106,7 @@ const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
-                  placeholder="Jean Dupont"
+                  placeholder="Prénom Nom"
                 />
               </div>
 
@@ -123,7 +123,7 @@ const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
-                  placeholder="jean@exemple.fr"
+                  placeholder="votre.email@exemple.com"
                 />
               </div>
 
@@ -139,7 +139,7 @@ const Contact: React.FC = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
-                  placeholder="06 12 34 56 78"
+                  placeholder="Votre numéro de téléphone"
                 />
               </div>
 
@@ -155,7 +155,7 @@ const Contact: React.FC = () => {
                   value={formData.company}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300"
-                  placeholder="Nom de votre entreprise"
+                  placeholder="Nom de l'entreprise (Optionnel)"
                 />
               </div>
 
